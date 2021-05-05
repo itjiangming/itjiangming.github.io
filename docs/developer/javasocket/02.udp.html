@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>JavaSocket系列-UDP链接 | 江明的个人网站</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/img/icon/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/icon/favicon.ico" type="image/x-icon">
+    <link rel="bookmark" href="/img/icon/favicon.ico" type="image/x-icon">
+    <script language="javascript" type="text/javascript" src="/js/unsupport.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?9c9c4bc79a7c31469b6b94b190c2be1f";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>            
+        </script>
+    <script language="javascript" type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/mouse.click.text.effect.js"></script>
+    <meta name="description" content="专注互联网领域研究和软件技术的研发、挖掘与分享">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="Keywords" content="江明,江明的个人网站,江明的博客,编程,Java,Android,Web,rxjava,vuepress,gitbook">
+    
+    <link rel="preload" href="/assets/css/0.styles.26c03a16.css" as="style"><link rel="preload" href="/assets/js/app.e3e2c9d1.js" as="script"><link rel="preload" href="/assets/js/3.5ac42903.js" as="script"><link rel="preload" href="/assets/js/1.a0448a14.js" as="script"><link rel="preload" href="/assets/js/22.d0a7e9d7.js" as="script"><link rel="prefetch" href="/assets/js/10.35c5f75b.js"><link rel="prefetch" href="/assets/js/11.0e3a6bd9.js"><link rel="prefetch" href="/assets/js/12.d94a5e16.js"><link rel="prefetch" href="/assets/js/13.f2f3d2da.js"><link rel="prefetch" href="/assets/js/14.c9637380.js"><link rel="prefetch" href="/assets/js/15.fed6d1ac.js"><link rel="prefetch" href="/assets/js/16.3553b6b8.js"><link rel="prefetch" href="/assets/js/17.795bfa14.js"><link rel="prefetch" href="/assets/js/18.19c62c89.js"><link rel="prefetch" href="/assets/js/19.282059f2.js"><link rel="prefetch" href="/assets/js/20.676a0a5a.js"><link rel="prefetch" href="/assets/js/21.d5057922.js"><link rel="prefetch" href="/assets/js/23.8b13402c.js"><link rel="prefetch" href="/assets/js/24.98727895.js"><link rel="prefetch" href="/assets/js/25.394c95b0.js"><link rel="prefetch" href="/assets/js/26.c8abc1ae.js"><link rel="prefetch" href="/assets/js/27.b74cb540.js"><link rel="prefetch" href="/assets/js/28.29aa76ea.js"><link rel="prefetch" href="/assets/js/29.4481cad0.js"><link rel="prefetch" href="/assets/js/30.add4913e.js"><link rel="prefetch" href="/assets/js/31.528dfabd.js"><link rel="prefetch" href="/assets/js/32.52da23ed.js"><link rel="prefetch" href="/assets/js/33.0d07f17b.js"><link rel="prefetch" href="/assets/js/34.d88223be.js"><link rel="prefetch" href="/assets/js/35.93997962.js"><link rel="prefetch" href="/assets/js/36.b126f5fe.js"><link rel="prefetch" href="/assets/js/4.93a71a9d.js"><link rel="prefetch" href="/assets/js/5.47689664.js"><link rel="prefetch" href="/assets/js/6.5c525374.js"><link rel="prefetch" href="/assets/js/7.93187d56.js"><link rel="prefetch" href="/assets/js/8.78920b80.js"><link rel="prefetch" href="/assets/js/9.347e9b10.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.26c03a16.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-1156296a><div data-v-1156296a><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-1156296a data-v-1156296a><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-4e82dffc data-v-1156296a data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>江明的个人网站</h3> <p class="description" data-v-4e82dffc data-v-4e82dffc>专注互联网领域研究和软件技术的研发、挖掘与分享</p> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>JiangMing-JIM</span>
+            
+          <!---->
+          2021
+        </a></span></div></div> <div class="hide" data-v-1156296a><header class="navbar" data-v-1156296a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">江明的个人网站</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  主页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      文章分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/Android/" class="nav-link"><i class="undefined"></i>
+  Android
+</a></li><li class="dropdown-item"><!----> <a href="/categories/Java/" class="nav-link"><i class="undefined"></i>
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/categories/JavaSocket/" class="nav-link"><i class="undefined"></i>
+  JavaSocket
+</a></li><li class="dropdown-item"><!----> <a href="/categories/Gitbook/" class="nav-link"><i class="undefined"></i>
+  Gitbook
+</a></li><li class="dropdown-item"><!----> <a href="/categories/Rxjava2/" class="nav-link"><i class="undefined"></i>
+  Rxjava2
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  文章标签
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-document"></i>
+      系列教程
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/developer/android/base/" class="nav-link"><i class="undefined"></i>
+  Android
+</a></li><li class="dropdown-item"><!----> <a href="/developer/rxjava2/01.rxjava2.html" class="nav-link"><i class="undefined"></i>
+  Rxjava2
+</a></li><li class="dropdown-item"><!----> <a href="/developer/javasocket/" class="nav-link router-link-active"><i class="undefined"></i>
+  JavaSocket
+</a></li><li class="dropdown-item"><!----> <a href="/tutorial/gitbook/" class="nav-link"><i class="undefined"></i>
+  Gitbook
+</a></li><li class="dropdown-item"><!----> <a href="/" class="nav-link"><i class="undefined"></i>
+  ...
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-blog"></i>
+      个人博客
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://blog.csdn.net/ming_97y" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-csdn"></i>
+  CSDN
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://www.jianshu.com/u/bbe6d4f1373a" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-jianshu"></i>
+  简书
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://www.cnblogs.com/jiangming-blogs" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-bokeyuan"></i>
+  博客园
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-api"></i>
+      代码仓库
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/jiangminggithub" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://gitee.com/jiangming_gitee" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-mayun"></i>
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div><div class="nav-item"><a href="/comment/" class="nav-link"><i class="iconfont reco-suggestion"></i>
+  留言板
+</a></div><div class="nav-item"><a href="/about/" class="nav-link"><i class="iconfont reco-faq"></i>
+  了解本站
+</a></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-1156296a></div> <aside class="sidebar" data-v-1156296a><div class="personal-info-wrapper" data-v-828910c6 data-v-1156296a><img src="/img/icon/icon.png" alt="author-avatar" class="personal-img" data-v-828910c6> <h3 class="name" data-v-828910c6>
+    JiangMing-JIM
+  </h3> <div class="num" data-v-828910c6><div data-v-828910c6><h3 data-v-828910c6>25</h3> <h6 data-v-828910c6>文章</h6></div> <div data-v-828910c6><h3 data-v-828910c6>4</h3> <h6 data-v-828910c6>标签</h6></div></div> <ul class="social-links" data-v-828910c6><li class="social-item" data-v-828910c6><i class="iconfont reco-github" style="color:#f8b26a;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-mayun" style="color:#e15b64;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-coding" style="color:#849b87;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-csdn" style="color:#fb9b5f;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-jianshu" style="color:#e15b64;" data-v-828910c6></i></li><li class="social-item" data-v-828910c6><i class="iconfont reco-bokeyuan" style="color:#abbd81;" data-v-828910c6></i></li></ul> <hr data-v-828910c6></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  主页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      文章分类
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/Android/" class="nav-link"><i class="undefined"></i>
+  Android
+</a></li><li class="dropdown-item"><!----> <a href="/categories/Java/" class="nav-link"><i class="undefined"></i>
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/categories/JavaSocket/" class="nav-link"><i class="undefined"></i>
+  JavaSocket
+</a></li><li class="dropdown-item"><!----> <a href="/categories/Gitbook/" class="nav-link"><i class="undefined"></i>
+  Gitbook
+</a></li><li class="dropdown-item"><!----> <a href="/categories/Rxjava2/" class="nav-link"><i class="undefined"></i>
+  Rxjava2
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  文章标签
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  时间线
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-document"></i>
+      系列教程
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/developer/android/base/" class="nav-link"><i class="undefined"></i>
+  Android
+</a></li><li class="dropdown-item"><!----> <a href="/developer/rxjava2/01.rxjava2.html" class="nav-link"><i class="undefined"></i>
+  Rxjava2
+</a></li><li class="dropdown-item"><!----> <a href="/developer/javasocket/" class="nav-link router-link-active"><i class="undefined"></i>
+  JavaSocket
+</a></li><li class="dropdown-item"><!----> <a href="/tutorial/gitbook/" class="nav-link"><i class="undefined"></i>
+  Gitbook
+</a></li><li class="dropdown-item"><!----> <a href="/" class="nav-link"><i class="undefined"></i>
+  ...
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-blog"></i>
+      个人博客
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://blog.csdn.net/ming_97y" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-csdn"></i>
+  CSDN
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://www.jianshu.com/u/bbe6d4f1373a" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-jianshu"></i>
+  简书
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://www.cnblogs.com/jiangming-blogs" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-bokeyuan"></i>
+  博客园
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-api"></i>
+      代码仓库
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/jiangminggithub" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://gitee.com/jiangming_gitee" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-mayun"></i>
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div><div class="nav-item"><a href="/comment/" class="nav-link"><i class="iconfont reco-suggestion"></i>
+  留言板
+</a></div><div class="nav-item"><a href="/about/" class="nav-link"><i class="iconfont reco-faq"></i>
+  了解本站
+</a></div> <!----></nav> <ul class="sidebar-links"><li><a href="/developer/javasocket/" aria-current="page" class="sidebar-link">JavaSocket系列介绍</a></li><li><a href="/developer/javasocket/01.tcp.html" class="sidebar-link">JavaSocket系列-TCP链接</a></li><li><a href="/developer/javasocket/02.udp.html" aria-current="page" class="active sidebar-link">JavaSocket系列-UDP链接</a></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-4e82dffc data-v-1156296a><h3 class="title" data-v-4e82dffc data-v-4e82dffc>JavaSocket系列-UDP链接</h3> <!----> <label id="box" class="inputBox" data-v-4e82dffc data-v-4e82dffc><input type="password" value="" data-v-4e82dffc> <span data-v-4e82dffc>Konck! Knock!</span> <button data-v-4e82dffc>OK</button></label> <div class="footer" data-v-4e82dffc data-v-4e82dffc><span data-v-4e82dffc><i class="iconfont reco-theme" data-v-4e82dffc></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-4e82dffc>vuePress-theme-reco</a></span> <span data-v-4e82dffc><i class="iconfont reco-copyright" data-v-4e82dffc></i> <a data-v-4e82dffc><span data-v-4e82dffc>JiangMing-JIM</span>
+            
+          <!---->
+          2021
+        </a></span></div></div> <div data-v-1156296a><main class="page"><section><div class="page-title"><h1 class="title">JavaSocket系列-UDP链接</h1> <div data-v-1ff7123e><i class="iconfont reco-account" data-v-1ff7123e><span data-v-1ff7123e>JiangMing</span></i> <i class="iconfont reco-date" data-v-1ff7123e><span data-v-1ff7123e>2021-4-26</span></i> <i class="iconfont reco-eye" data-v-1ff7123e><span id="/developer/javasocket/02.udp.html" data-flag-title="Your Article Title" class="leancloud-visitors" data-v-1ff7123e><a class="leancloud-visitors-count" style="font-size:.9rem;font-weight:normal;color:#999;"></a></span></i> <i class="tags iconfont reco-tag" data-v-1ff7123e><span class="tag-item" data-v-1ff7123e>JavaSocket</span></i></div></div> <div class="theme-reco-content content__default"><h2 id="简单介绍"><a href="#简单介绍" class="header-anchor">#</a> 简单介绍</h2> <p>基于 <a href="https://baike.baidu.com/item/UDP/571511" target="_blank" rel="noopener noreferrer">UDP协议<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> 的 <code>Java</code>方式Socket的实现，它是 <strong>数据报套接字 (SOCK_DGRAM)</strong> 的一种传输类型，是 <strong>面向无连接</strong> 的服务类型。在选择UDP作为传输协议时必须要谨慎，在网络质量令人十分不满意的环境下，UDP协议数据包丢失会比较严重。</p> <div class="custom-block tip"><p class="title">相关参考</p><p>UDP 是User Datagram Protocol的简称， 中文名是用户数据报协议，是OSI（Open System Interconnection，开放式系统互联） 参考模型中一种无连接的传输层协议，提供面向事务的简单不可靠信息传送服务，IETF RFC 768 是UDP的正式规范。UDP在IP报文的协议号是17。</p></div><p>由于UDP的特性：它不属于连接型协议，因而具有资源消耗小，处理速度快的优点，所以通常音频、视频和普通数据在传送时使用UDP较多，因为它们即使偶尔丢失一两个数据包，也不会对接收结果产生太大影响。比如我们聊天用的ICQ和<a href="https://baike.baidu.com/item/QQ" target="_blank" rel="noopener noreferrer">QQ<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>就是使用的UDP协议。</p> <p>接下来一起来开始 JavaSocket UDP 的相关实战吧~</p> <h2 id="udp传输类型"><a href="#udp传输类型" class="header-anchor">#</a> UDP传输类型</h2> <p>UDP是通过数据报的方式来进行通信的，但是在发送和结束的有一下几种分类：</p> <ol><li>单播（点对点）</li> <li>组播（一对多）</li> <li>广播（全员广播，可以理解是一种特殊的组播）</li></ol> <div class="custom-block warning"><p class="title">需要注意</p><p><strong>组播</strong>和<strong>广播</strong>的方式只能用于局域网通信，并受限于以下的各种条件:</p> <ol><li>部分路由器或者网络设备可能有所限制，无法完成此项功能；</li> <li>部分机器可能安装了虚拟机，可能需要关闭虚拟网卡后才可以正常使用；</li> <li>部分系统可能有防火墙原因，广播可能发送或者接收异常，请关闭防护墙后试试；</li> <li>其他情况的网络限制原因...</li></ol></div><h2 id="实现流程"><a href="#实现流程" class="header-anchor">#</a> 实现流程</h2> <ol><li><p>创建一个UDPServer，监听指定端口的UDP数据；</p></li> <li><p>创建一个UDPClient，发送不同UDP类型的数据；</p></li> <li><p>服务端接受到数据处理（可以反馈客户端），服务端同样可以接受服务反馈的消息进行相应处理；</p></li> <li><p>在数据交互结束后根据需要可以分别关闭相应的服务端或者客户端程序。</p></li></ol> <h2 id="创建服务端代码"><a href="#创建服务端代码" class="header-anchor">#</a> 创建服务端代码</h2> <div class="custom-block warning"><p class="title">提示</p><p>由于广播是组播的一种特殊的实现，所以广播和组播的服务端公用一份代码实例。</p> <ul><li>组播是有特定的类型的IP的</li> <li>广播可以是局域网全局广播或者指定网段广播，取决于当前网络环境的特定的广播地址</li></ul></div><h3 id="单播服务端代码"><a href="#单播服务端代码" class="header-anchor">#</a> 单播服务端代码</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UdpSocketServer</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">String</span> TAG <span class="token operator">=</span> <span class="token class-name">UdpSocketServer</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">DatagramSocket</span> mDatagramSocket<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> mPort<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">boolean</span> isShutDown <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">boolean</span> isRunning <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token comment">/**
+     * 创建一个UdpSocketServer对象，用于接收UDP客户端发送的消息.
+     *
+     * @param port 接收数据的端口号.
+     * @throws Exception
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">UdpSocketServer</span><span class="token punctuation">(</span><span class="token keyword">int</span> port<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        mPort <span class="token operator">=</span> port<span class="token punctuation">;</span>
+        mDatagramSocket <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DatagramSocket</span><span class="token punctuation">(</span>mPort<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mDatagramSocket<span class="token punctuation">.</span><span class="token function">setBroadcast</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 部分操作系统可能需要申请广播才可以使用</span>
+        isShutDown <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 开始启动数据接收监听以及回复数据.
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>isRunning<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>isShutDown<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> buff <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                    <span class="token class-name">DatagramPacket</span> dp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DatagramPacket</span><span class="token punctuation">(</span>buff<span class="token punctuation">,</span> buff<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; run: Server receiving...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    mDatagramSocket<span class="token punctuation">.</span><span class="token function">receive</span><span class="token punctuation">(</span>dp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">String</span> data <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>dp<span class="token punctuation">.</span><span class="token function">getData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">StandardCharsets</span><span class="token punctuation">.</span>UTF_8<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; run: server receiveMessage,  remoteAddress = &quot;</span> <span class="token operator">+</span> dp<span class="token punctuation">.</span><span class="token function">getAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                            <span class="token operator">+</span> <span class="token string">&quot;, port = &quot;</span> <span class="token operator">+</span> dp<span class="token punctuation">.</span><span class="token function">getPort</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot;, data = &quot;</span> <span class="token operator">+</span> data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                    <span class="token class-name">String</span> repose <span class="token operator">=</span> <span class="token string">&quot;[Server]: Client Msg is Received&quot;</span><span class="token punctuation">;</span>
+                    <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> repBuf <span class="token operator">=</span> repose<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    dp<span class="token punctuation">.</span><span class="token function">setData</span><span class="token punctuation">(</span>repBuf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    mDatagramSocket<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span>dp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; run:  Server has replied to the Message!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                isRunning <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; run: exception = &quot;</span> <span class="token operator">+</span> e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span><span class="token string">&quot; run: UdpSocketServer has running...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 关闭Socket链接，如果还在执行接收或者发送的情况，可能会在相应位置出现异常，忽略即可.
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">shutDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        isRunning <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        isShutDown <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            mDatagramSocket<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; shutDown&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; shutDown&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="组播和广播服务端代码"><a href="#组播和广播服务端代码" class="header-anchor">#</a> 组播和广播服务端代码</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * 关于组播地址的分类参考：
+ * &lt;p&gt;224.0.0.0～224.0.0.255为预留的组播地址（永久组地址），地址224.0.0.0保留不做分配，其它地址供路由协议使用；
+ * &lt;p&gt;224.0.1.0～224.0.1.255是公用组播地址，可以用于Internet；
+ * &lt;p&gt;224.0.2.0～238.255.255.255为用户可用的组播地址（临时组地址）；
+ * &lt;p&gt;239.0.0.0～239.255.255.255为本地管理组播地址，仅在特定的本地范围内有效。
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UdpMulticastSocketServer</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">String</span> TAG <span class="token operator">=</span> <span class="token class-name">UdpMulticastSocketServer</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">MulticastSocket</span> mMultiSocket<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">InetAddress</span> mMultiGroupInetAddress<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> mPort<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">boolean</span> isShutDown <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">boolean</span> isRunning <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 创建一个UdpMultiSocketServer对象，可以绑定到指定的组播地址以及端口上，监听并回复消息.
+     *
+     * @param groupAddress 多播的地址.
+     * @param port         多播的端口号.
+     * @throws Exception
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">UdpMulticastSocketServer</span><span class="token punctuation">(</span><span class="token class-name">NetworkInterface</span> networkInterface<span class="token punctuation">,</span>
+                                    <span class="token class-name">InetAddress</span> groupAddress<span class="token punctuation">,</span> <span class="token keyword">int</span> port<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        mMultiGroupInetAddress <span class="token operator">=</span> groupAddress<span class="token punctuation">;</span>
+        mPort <span class="token operator">=</span> port<span class="token punctuation">;</span>
+        mMultiSocket <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MulticastSocket</span><span class="token punctuation">(</span>mPort<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mMultiSocket<span class="token punctuation">.</span><span class="token function">setNetworkInterface</span><span class="token punctuation">(</span>networkInterface<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 设置指定的网卡设备</span>
+        mMultiSocket<span class="token punctuation">.</span><span class="token function">joinGroup</span><span class="token punctuation">(</span>mMultiGroupInetAddress<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 加入到指定的多播地址上</span>
+        isShutDown <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 开始运行并接收多播地址和端口的消息.
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>isRunning<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            isRunning <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>isShutDown<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> buff <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token number">1024</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                    <span class="token class-name">DatagramPacket</span> dp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DatagramPacket</span><span class="token punctuation">(</span>buff<span class="token punctuation">,</span> buff<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; run: Server receiving...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    mMultiSocket<span class="token punctuation">.</span><span class="token function">receive</span><span class="token punctuation">(</span>dp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment">// 处理接收到的消息</span>
+                    <span class="token class-name">String</span> remoteAddress <span class="token operator">=</span> dp<span class="token punctuation">.</span><span class="token function">getAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getHostAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">int</span> port <span class="token operator">=</span> dp<span class="token punctuation">.</span><span class="token function">getPort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">String</span> data <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>dp<span class="token punctuation">.</span><span class="token function">getData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">CharsetUtil</span><span class="token punctuation">.</span>UTF_8<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; run: server receiveMessage, remoteAddress = &quot;</span> <span class="token operator">+</span> remoteAddress
+                            <span class="token operator">+</span> <span class="token string">&quot;, port = &quot;</span> <span class="token operator">+</span> port
+                            <span class="token operator">+</span> <span class="token string">&quot;, data = &quot;</span> <span class="token operator">+</span> data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                    <span class="token comment">// 回复Client消息</span>
+                    <span class="token class-name">String</span> repose <span class="token operator">=</span> <span class="token string">&quot;[Server]: Client Msg is Received&quot;</span><span class="token punctuation">;</span>
+                    dp<span class="token punctuation">.</span><span class="token function">setData</span><span class="token punctuation">(</span>repose<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token class-name">CharsetUtil</span><span class="token punctuation">.</span>UTF_8<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    mMultiSocket<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span>dp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                isRunning <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; run: exception = &quot;</span> <span class="token operator">+</span> e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; run: UdpMulticastSocketServer has running...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 关闭Socket链接，如果还在执行接收或者发送的情况，可能会在相应位置出现异常，忽略即可.
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">shutDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        isRunning <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        isShutDown <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            mMultiSocket<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; shutDown&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; shutDown&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="创建客户端代码"><a href="#创建客户端代码" class="header-anchor">#</a> 创建客户端代码</h2> <p><strong>由于广播是组播的一种特殊的实现，所以广播和组播的客户端也公用一份代码实例。</strong></p> <h3 id="单播客户端代码"><a href="#单播客户端代码" class="header-anchor">#</a> 单播客户端代码</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UdpSocketClient</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">String</span> TAG <span class="token operator">=</span> <span class="token class-name">UdpSocketClient</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">DatagramSocket</span> mDatagramSocket<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">DatagramPacket</span> mDatagramPacket<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> buff <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">InetAddress</span> mAddress<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> mPort<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">boolean</span> isShutDown <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">boolean</span> isReceiving <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 创建UdpSocketClient对象.
+     *
+     * @param address 发送数据的服务的InetAddress.
+     * @param port    发送数据的服务的端口号.
+     * @throws Exception
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">UdpSocketClient</span><span class="token punctuation">(</span><span class="token class-name">InetAddress</span> address<span class="token punctuation">,</span> <span class="token keyword">int</span> port<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        mAddress <span class="token operator">=</span> address<span class="token punctuation">;</span>
+        mPort <span class="token operator">=</span> port<span class="token punctuation">;</span>
+        mDatagramSocket <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DatagramSocket</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mDatagramPacket <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DatagramPacket</span><span class="token punctuation">(</span>buff<span class="token punctuation">,</span> buff<span class="token punctuation">.</span>length<span class="token punctuation">,</span> mAddress<span class="token punctuation">,</span> mPort<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        isShutDown <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span> <span class="token comment">// 标记是否关闭</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 发送数据给目标Server.
+     *
+     * @param msg 需要发送的字符串数据.
+     * @throws Exception
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">void</span> <span class="token function">sendMessage</span><span class="token punctuation">(</span><span class="token class-name">String</span> msg<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>isShutDown <span class="token operator">&amp;&amp;</span> <span class="token keyword">null</span> <span class="token operator">!=</span> msg <span class="token operator">&amp;&amp;</span> msg<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            mDatagramPacket<span class="token punctuation">.</span><span class="token function">setData</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token class-name">StandardCharsets</span><span class="token punctuation">.</span>UTF_8<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            mDatagramSocket<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span>mDatagramPacket<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; sendMessage: msg = &quot;</span> <span class="token operator">+</span> msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 开始接收Server回复的数据消息.
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">void</span> <span class="token function">receiveData</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>isReceiving<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            isReceiving <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token annotation punctuation">@Override</span>
+                <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>isShutDown<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                            <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> revBuff <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                            <span class="token class-name">DatagramPacket</span> revDatagramPacket <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DatagramPacket</span><span class="token punctuation">(</span>revBuff<span class="token punctuation">,</span> revBuff<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            mDatagramSocket<span class="token punctuation">.</span><span class="token function">receive</span><span class="token punctuation">(</span>revDatagramPacket<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token class-name">String</span> rData <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>revDatagramPacket<span class="token punctuation">.</span><span class="token function">getData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>
+                                    revDatagramPacket<span class="token punctuation">.</span><span class="token function">getLength</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">StandardCharsets</span><span class="token punctuation">.</span>UTF_8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; receiveData:  remoteAddress = &quot;</span> <span class="token operator">+</span> revDatagramPacket<span class="token punctuation">.</span><span class="token function">getAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                                    <span class="token operator">+</span> <span class="token string">&quot;, port = &quot;</span> <span class="token operator">+</span> revDatagramPacket<span class="token punctuation">.</span><span class="token function">getPort</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot;, data = &quot;</span> <span class="token operator">+</span> rData<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            isReceiving <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; receiveData: exception = &quot;</span> <span class="token operator">+</span> e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; receiveData: UdpSocketClient has receiving...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 关闭Socket链接，如果还在执行接收或者发送的情况，可能会在相应位置出现异常，忽略即可.
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">void</span> <span class="token function">shutDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        isReceiving <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        isShutDown <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            mDatagramSocket<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; shutDown&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; shutDown&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="组播和广播客户端代码"><a href="#组播和广播客户端代码" class="header-anchor">#</a> 组播和广播客户端代码</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * 关于组播地址的分类参考：
+ * &lt;p&gt;224.0.0.0～224.0.0.255为预留的组播地址（永久组地址），地址224.0.0.0保留不做分配，其它地址供路由协议使用；
+ * &lt;p&gt;224.0.1.0～224.0.1.255是公用组播地址，可以用于Internet；
+ * &lt;p&gt;224.0.2.0～238.255.255.255为用户可用的组播地址（临时组地址），全网范围内有效；
+ * &lt;p&gt;239.0.0.0～239.255.255.255为本地管理组播地址，仅在特定的本地范围内有效。
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UdpMulticastSocketClient</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">String</span> TAG <span class="token operator">=</span> <span class="token class-name">UdpMulticastSocketClient</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">MulticastSocket</span> mMultiSocket<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">InetAddress</span> mMultiInetAddress<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> mPort<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">boolean</span> isShutDown <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">boolean</span> isReceiving <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 创建一个UdpMultiSocketClient对象，可以发送一个指定的多播（组播）消息，并可以接收回复消息.
+     *
+     * @param groupAddress 多播的地址.
+     * @param port         多播的端口号.
+     * @throws Exception
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">UdpMulticastSocketClient</span><span class="token punctuation">(</span><span class="token class-name">InetAddress</span> groupAddress<span class="token punctuation">,</span> <span class="token keyword">int</span> port<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        mMultiInetAddress <span class="token operator">=</span> groupAddress<span class="token punctuation">;</span>
+        mPort <span class="token operator">=</span> port<span class="token punctuation">;</span>
+        mMultiSocket <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MulticastSocket</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        isShutDown <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 可以向指定的多播组发送一个消息，所有在指定的组地址以及端口号的设备都可以接收到.
+     *
+     * @param msg 发送的字符串消息.
+     * @throws Exception
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">void</span> <span class="token function">sendMessage</span><span class="token punctuation">(</span><span class="token class-name">String</span> msg<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>isShutDown <span class="token operator">&amp;&amp;</span> <span class="token keyword">null</span> <span class="token operator">!=</span> msg <span class="token operator">&amp;&amp;</span> msg<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> buff <span class="token operator">=</span> msg<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token class-name">CharsetUtil</span><span class="token punctuation">.</span>UTF_8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">DatagramPacket</span> dp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DatagramPacket</span><span class="token punctuation">(</span>buff<span class="token punctuation">,</span> buff<span class="token punctuation">.</span>length<span class="token punctuation">,</span> mMultiInetAddress<span class="token punctuation">,</span> mPort<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            mMultiSocket<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span>dp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; sendMessage: msg = &quot;</span> <span class="token operator">+</span> msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; sendMessage: msg is invalid!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 接收回复的消息.
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">void</span> <span class="token function">receiveData</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>isReceiving<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            isReceiving <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token annotation punctuation">@Override</span>
+                <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>isShutDown<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> buff <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                            <span class="token class-name">DatagramPacket</span> dp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DatagramPacket</span><span class="token punctuation">(</span>buff<span class="token punctuation">,</span> buff<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            mMultiSocket<span class="token punctuation">.</span><span class="token function">receive</span><span class="token punctuation">(</span>dp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                            <span class="token class-name">InetAddress</span> address <span class="token operator">=</span> dp<span class="token punctuation">.</span><span class="token function">getAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token keyword">int</span> port <span class="token operator">=</span> dp<span class="token punctuation">.</span><span class="token function">getPort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token class-name">String</span> data <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>dp<span class="token punctuation">.</span><span class="token function">getData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">CharsetUtil</span><span class="token punctuation">.</span>UTF_8<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; receiveData: remoteAddress = &quot;</span> <span class="token operator">+</span> address<span class="token punctuation">.</span><span class="token function">getHostAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                                    <span class="token operator">+</span> <span class="token string">&quot;, port = &quot;</span> <span class="token operator">+</span> port
+                                    <span class="token operator">+</span> <span class="token string">&quot;, data = &quot;</span> <span class="token operator">+</span> data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        isReceiving <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; receiveData: exception = &quot;</span> <span class="token operator">+</span> e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; receiveData: UdpMulticastSocketClient has receiving...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 关闭Socket链接，如果还在执行接收或者发送的情况，可能会在相应位置出现异常，忽略即可.
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">void</span> <span class="token function">shutDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        isReceiving <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        isShutDown <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            mMultiSocket<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; shutDown&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>TAG <span class="token operator">+</span> <span class="token string">&quot; shutDown&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="网卡的接口相关工具类代码"><a href="#网卡的接口相关工具类代码" class="header-anchor">#</a> 网卡的接口相关工具类代码</h2> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * 网卡相关接口（NetworkInterface）的工具操作类对象
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">NetworkInterfaceUtil</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * 获取当前设备的所有网卡的NetworkInterface对象集合
+     *
+     * @return 设备的所有网卡的NetworkInterface对象集合
+     * @throws Exception
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">Enumeration</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">NetworkInterface</span><span class="token punctuation">&gt;</span></span> <span class="token function">getNetworkInterfaces</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Enumeration</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">NetworkInterface</span><span class="token punctuation">&gt;</span></span> interfaces <span class="token operator">=</span> <span class="token class-name">NetworkInterface</span><span class="token punctuation">.</span><span class="token function">getNetworkInterfaces</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> interfaces<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 从当前设备中可用网卡中选择一个网卡NetworkInterface对象
+     *
+     * @return 选择的一个可用的网卡NetworkInterface对象
+     * @throws Exception
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">NetworkInterface</span> <span class="token function">choseNetworkInterface</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Enumeration</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">NetworkInterface</span><span class="token punctuation">&gt;</span></span> interfaces <span class="token operator">=</span> <span class="token function">getNetworkInterfaces</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">null</span> <span class="token operator">!=</span> interfaces<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">NetworkInterface</span><span class="token punctuation">&gt;</span></span> interfaceList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>interfaces<span class="token punctuation">.</span><span class="token function">hasMoreElements</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token class-name">NetworkInterface</span> networkInterface <span class="token operator">=</span> interfaces<span class="token punctuation">.</span><span class="token function">nextElement</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment">// 当前正在运行的网卡</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>networkInterface<span class="token punctuation">.</span><span class="token function">isUp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    interfaceList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>networkInterface<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>interfaceList<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment">// 打印每个NetworkInterface对象的相关消息</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;**************** NetworkInterfaces ****************&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> interfaceList<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token class-name">NetworkInterface</span> networkInterface <span class="token operator">=</span> interfaceList<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> bytes <span class="token operator">=</span> networkInterface<span class="token punctuation">.</span><span class="token function">getHardwareAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">StringBuffer</span> sb <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">null</span> <span class="token operator">!=</span> bytes<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> bytes<span class="token punctuation">.</span>length<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">&quot;%02x&quot;</span><span class="token punctuation">,</span> bytes<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token keyword">if</span> <span class="token punctuation">(</span>j <span class="token operator">&lt;</span> <span class="token punctuation">(</span>bytes<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                                sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">&quot;:&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span>
+                    <span class="token class-name">String</span> hardwareAddress <span class="token operator">=</span> sb<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                    <span class="token comment">// 获取当前interface的所有Addresses</span>
+                    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">InterfaceAddress</span><span class="token punctuation">&gt;</span></span> interfaceAddresses <span class="token operator">=</span> networkInterface<span class="token punctuation">.</span><span class="token function">getInterfaceAddresses</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;[&quot;</span> <span class="token operator">+</span> <span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot;]. networkInterface: &quot;</span> <span class="token operator">+</span>
+                            <span class="token string">&quot;\n\t &gt; name = &quot;</span> <span class="token operator">+</span> networkInterface<span class="token punctuation">.</span><span class="token function">getDisplayName</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                            <span class="token operator">+</span> <span class="token string">&quot;,\n\t &gt; isLoopback = &quot;</span> <span class="token operator">+</span> networkInterface<span class="token punctuation">.</span><span class="token function">isLoopback</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                            <span class="token operator">+</span> <span class="token string">&quot;,\n\t &gt; isVirtual = &quot;</span> <span class="token operator">+</span> networkInterface<span class="token punctuation">.</span><span class="token function">isVirtual</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                            <span class="token operator">+</span> <span class="token string">&quot;,\n\t &gt; supportsMulticast = &quot;</span> <span class="token operator">+</span> networkInterface<span class="token punctuation">.</span><span class="token function">supportsMulticast</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                            <span class="token operator">+</span> <span class="token string">&quot;,\n\t &gt; MTU = &quot;</span> <span class="token operator">+</span> networkInterface<span class="token punctuation">.</span><span class="token function">getMTU</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                            <span class="token operator">+</span> <span class="token string">&quot;,\n\t &gt; hardwareAddress = &quot;</span> <span class="token operator">+</span> <span class="token punctuation">(</span>hardwareAddress<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">?</span> hardwareAddress <span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+                            <span class="token operator">+</span> <span class="token string">&quot;,\n\t &gt; interfaceAddress = &quot;</span> <span class="token operator">+</span> interfaceAddresses<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;[&quot;</span> <span class="token operator">+</span> <span class="token punctuation">(</span>interfaceList<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot;]. exit&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;***************************************************\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token comment">// 接收用户输入的功能序号选择对应的NetworkInterface或者退出</span>
+                <span class="token class-name">Scanner</span> scanner <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Scanner</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span>in<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">&quot;==&gt; 请选择一个支持功能操作的网卡（NetworkInterface）序号：&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">int</span> num<span class="token punctuation">;</span>
+                    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                        num <span class="token operator">=</span> scanner<span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;==&gt; 您输入的序号错误，请重新输入!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        scanner <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Scanner</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span>in<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>num <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> num <span class="token operator">&lt;=</span> interfaceList<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token comment">// 返回选择项的NetworkInterface</span>
+                        <span class="token keyword">return</span> interfaceList<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>num <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>num <span class="token operator">==</span> <span class="token punctuation">(</span>interfaceList<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;==&gt; 您输入的序号错误，请重新输入!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 选择一个可用的局域网全局广播方式或者指定网段广播方式的地址
+     *
+     * @return 返回一个可用的广播地址InetAddress对象
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">InetAddress</span> <span class="token function">choseBroadcastAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">InetAddress</span> broadcastAddress <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token class-name">Scanner</span> scanner <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Scanner</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span>in<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;******************* 请选择一个广播的方式 *******************&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;[1]. 局域网全网段广播(部分网路设备不支持或者有限制)&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;[2]. 指定网段局域网(选择一个指定网段的广播地址)&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;[3]. Exit&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;*********************************************************\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">&quot;==&gt; 请选择广播的方式：&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> num<span class="token punctuation">;</span>
+            <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                <span class="token comment">// 广播方式选择</span>
+                num <span class="token operator">=</span> scanner<span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment">// 1. 局域网全网段广播，注意：部分路由器或者网络设备可能有所限制，无法完成广播</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>num <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    broadcastAddress <span class="token operator">=</span> <span class="token class-name">InetAddress</span><span class="token punctuation">.</span><span class="token function">getByName</span><span class="token punctuation">(</span><span class="token string">&quot;255.255.255.255&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>num <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token comment">// 2. 局域网指定网段广播，根据当前的设备所处的网段的广播地址</span>
+                    <span class="token class-name">NetworkInterface</span> networkInterface <span class="token operator">=</span> <span class="token class-name">NetworkInterfaceUtil</span><span class="token punctuation">.</span><span class="token function">choseNetworkInterface</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">InterfaceAddress</span><span class="token punctuation">&gt;</span></span> interfaceAddresses <span class="token operator">=</span> networkInterface<span class="token punctuation">.</span><span class="token function">getInterfaceAddresses</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">InetAddress</span><span class="token punctuation">&gt;</span></span> broadcasts <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment">// 3. 遍历获取当前网卡的所有可用的广播地址</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>interfaceAddresses<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;******************* 选择当前网卡的一个可用的广播 *******************&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> interfaceAddresses<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token class-name">InetAddress</span> broadcast <span class="token operator">=</span> interfaceAddresses<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getBroadcast</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">null</span> <span class="token operator">!=</span> broadcast<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                                <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;[&quot;</span> <span class="token operator">+</span> i <span class="token operator">+</span> <span class="token string">&quot;]. &quot;</span> <span class="token operator">+</span> broadcast<span class="token punctuation">.</span><span class="token function">getHostAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                broadcasts<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>broadcast<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span>
+                        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;****************************************************************\n&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;==&gt; 此interface broadcast 不可用，请重新选择！&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">&quot;==&gt; 请选择具体一个广播地址对象：&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment">// 4. 选择选中NetworkInterface的指定网段广播地址</span>
+                    num <span class="token operator">=</span> scanner<span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    broadcastAddress <span class="token operator">=</span> broadcasts<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>num <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>num <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;==&gt; 您输入的序号错误，请重新选择!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;==&gt; 您输入的序号错误，请重新选择!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                scanner <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Scanner</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span>in<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 5. 返回选中的广播地址对象</span>
+        <span class="token keyword">return</span> broadcastAddress<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="使用示例"><a href="#使用示例" class="header-anchor">#</a> 使用示例</h2> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+* Java Udp Socket Demo.
+*
+* @throws IOException
+*/</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">javaUdpSocketDemo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 创建Server对象</span>
+    <span class="token class-name">UdpSocketServer</span> udpSocketServer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UdpSocketServer</span><span class="token punctuation">(</span><span class="token number">9999</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 开启Server</span>
+            udpSocketServer<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 本处ip是本地host，也可以是局域网下Server设备的实际ip</span>
+    <span class="token class-name">InetAddress</span> address <span class="token operator">=</span> <span class="token class-name">InetAddress</span><span class="token punctuation">.</span><span class="token function">getByName</span><span class="token punctuation">(</span><span class="token string">&quot;127.0.0.1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 创建Client对象</span>
+    <span class="token class-name">UdpSocketClient</span> udpSocketClient <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UdpSocketClient</span><span class="token punctuation">(</span>address<span class="token punctuation">,</span> <span class="token number">9999</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    udpSocketClient<span class="token punctuation">.</span><span class="token function">receiveData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 客户端接收回复消息</span>
+
+    <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 多线程延迟，防止异步创建对象不同步问题</span>
+
+    <span class="token comment">// 接收输入的数据发送给Server</span>
+    <span class="token class-name">Scanner</span> scanner <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Scanner</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span>in<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;\n==&gt; [Client --&gt; Server]请输入发送的消息(输入quit退出):&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> s <span class="token operator">=</span> scanner<span class="token punctuation">.</span><span class="token function">nextLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">&quot;quit&quot;</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;==&gt; javaUdpSocketDemo is quitting...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            udpSocketServer<span class="token punctuation">.</span><span class="token function">shutDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            udpSocketClient<span class="token punctuation">.</span><span class="token function">shutDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 发送输入的字符串数据</span>
+        udpSocketClient<span class="token punctuation">.</span><span class="token function">sendMessage</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 数据输入发送间隔设置为500ms</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;------------------------- javaUdpSocketDemo finished -------------------------&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+* Java Multicast Udp Socket Demo.
+* &lt;p&gt;
+* 注意：&lt;br&gt;
+* 1) 部分机器可能安装了虚拟机，可能需要关闭虚拟网卡后才可以正常使用.&lt;br&gt;
+* 2) 部分系统可能有防火墙原因，广播可能发送或者接收异常，请关闭防护墙后试试.&lt;br&gt;
+* 3) 部分路由器或者网络设备可能有所限制，无法完成此项功能.
+*
+* &lt;p&gt;
+* 关于组播地址的分类：&lt;br&gt;
+* 224.0.0.0～224.0.0.255为预留的组播地址（永久组地址），地址224.0.0.0保留不做分配，其它地址供路由协议使用；&lt;br&gt;
+* 224.0.1.0～224.0.1.255是公用组播地址，可以用于Internet；&lt;br&gt;
+* 224.0.2.0～238.255.255.255为用户可用的组播地址（临时组地址），全网范围内有效；&lt;br&gt;
+* 239.0.0.0～239.255.255.255为本地管理组播地址，仅在特定的本地范围内有效。&lt;br&gt;
+*
+* @throws Exception
+*/</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">javaMulticastUdpSocketDemo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 检查和获取可用的网卡设备，并选择一个网卡设置</span>
+    <span class="token class-name">NetworkInterface</span> networkInterface <span class="token operator">=</span> <span class="token class-name">NetworkInterfaceUtil</span><span class="token punctuation">.</span><span class="token function">choseNetworkInterface</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">null</span> <span class="token operator">==</span> networkInterface<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;nettyMulticastUdpSocketDemo： 网络异常，请检查网络设备是否可用！&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 指定多播的地址和端口号</span>
+    <span class="token class-name">InetAddress</span> multiInetAddress <span class="token operator">=</span> <span class="token class-name">InetAddress</span><span class="token punctuation">.</span><span class="token function">getByName</span><span class="token punctuation">(</span><span class="token string">&quot;239.0.0.1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> port <span class="token operator">=</span> <span class="token number">9999</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 创建多播Server对象</span>
+    <span class="token class-name">UdpMulticastSocketServer</span> multiSocketServer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UdpMulticastSocketServer</span><span class="token punctuation">(</span>networkInterface<span class="token punctuation">,</span>
+            multiInetAddress<span class="token punctuation">,</span> port<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 开启Server</span>
+            multiSocketServer<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 创建多播Client对象</span>
+    <span class="token class-name">UdpMulticastSocketClient</span> multiSocketClient <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UdpMulticastSocketClient</span><span class="token punctuation">(</span>multiInetAddress<span class="token punctuation">,</span> <span class="token number">9999</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    multiSocketClient<span class="token punctuation">.</span><span class="token function">receiveData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">// 客户端接收回复消息</span>
+
+    <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 多线程延迟，防止异步创建对象不同步问题</span>
+
+    <span class="token comment">// 接收输入的数据发送给Server</span>
+    <span class="token class-name">Scanner</span> scanner <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Scanner</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span>in<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;\n==&gt; [Client --&gt; Server]请输入发送的消息(输入quit退出):&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> s <span class="token operator">=</span> scanner<span class="token punctuation">.</span><span class="token function">nextLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">&quot;quit&quot;</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;==&gt; javaBroadcastUdpSocketDemo is quitting...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            multiSocketClient<span class="token punctuation">.</span><span class="token function">shutDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            multiSocketServer<span class="token punctuation">.</span><span class="token function">shutDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 发送输入的字符串数据</span>
+        multiSocketClient<span class="token punctuation">.</span><span class="token function">sendMessage</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 数据输入发送间隔设置为500ms</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+* Java Broadcast Udp Socket Demo.
+* &lt;p&gt;
+* 注意：&lt;br&gt;
+* 1) 部分机器可能安装了虚拟机，可能需要关闭虚拟网卡后才可以正常使用.&lt;br&gt;
+* 2) 部分系统可能有防火墙原因，广播可能发送或者接收异常，请关闭防护墙后试试.
+* 3) 部分路由器或者网络设备可能有所限制，无法完成此项功能.
+*
+* @throws Exception
+*/</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">javaBroadcastUdpSocketDemo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 创建Server对象</span>
+    <span class="token class-name">UdpSocketServer</span> udpBroadcastSocketServer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UdpSocketServer</span><span class="token punctuation">(</span><span class="token number">9999</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 开启Server</span>
+            udpBroadcastSocketServer<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 多线程延迟，防止异步创建对象不同步问题</span>
+    <span class="token comment">// 广播方式选择: 局域网全局广播或者指定网段广播</span>
+    <span class="token class-name">InetAddress</span> broadcastAddress <span class="token operator">=</span> <span class="token class-name">NetworkInterfaceUtil</span><span class="token punctuation">.</span><span class="token function">choseBroadcastAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;==&gt; 选择的broadcastAddress = &quot;</span> <span class="token operator">+</span> broadcastAddress<span class="token punctuation">.</span><span class="token function">getHostAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 创建广播Client对象</span>
+    <span class="token class-name">UdpSocketClient</span> udpBroadcastSocketClient <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UdpSocketClient</span><span class="token punctuation">(</span>broadcastAddress<span class="token punctuation">,</span> <span class="token number">9999</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    udpBroadcastSocketClient<span class="token punctuation">.</span><span class="token function">receiveData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 客户端接收回复消息</span>
+
+    <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 多线程延迟，防止异步创建对象不同步问题</span>
+
+    <span class="token comment">// 接收输入的数据发送给Server</span>
+    <span class="token class-name">Scanner</span> scanner <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Scanner</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span>in<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;\n==&gt; [Client --&gt; Server]请输入发送的消息(输入quit退出):&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        scanner<span class="token punctuation">.</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> s <span class="token operator">=</span> scanner<span class="token punctuation">.</span><span class="token function">nextLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">&quot;quit&quot;</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;==&gt; javaBroadcastUdpSocketDemo is quitting...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            udpBroadcastSocketServer<span class="token punctuation">.</span><span class="token function">shutDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            udpBroadcastSocketClient<span class="token punctuation">.</span><span class="token function">shutDown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 发送输入的字符串数据</span>
+        udpBroadcastSocketClient<span class="token punctuation">.</span><span class="token function">sendMessage</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 数据输入发送间隔设置为500ms</span>
+    <span class="token punctuation">}</span>
+    <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 多线程关闭延迟</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;------------------------- javaBroadcastUdpSocketDemo finished -------------------------&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="运行示例"><a href="#运行示例" class="header-anchor">#</a> 运行示例</h2> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># 单播示例</span>
+UdpSocketServer run: Server receiving<span class="token punctuation">..</span>.
+
+<span class="token operator">==</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>Client --<span class="token operator">&gt;</span> Server<span class="token punctuation">]</span>请输入发送的消息<span class="token punctuation">(</span>输入quit退出<span class="token punctuation">)</span>:
+Hello, I am JiangMing.
+UdpSocketClient sendMessage: msg <span class="token operator">=</span> Hello, I am JiangMing.
+UdpSocketServer run: server receiveMessage,  remoteAddress <span class="token operator">=</span> /127.0.0.1, port <span class="token operator">=</span> <span class="token number">50464</span>, data <span class="token operator">=</span> Hello, I am JiangMing.
+UdpSocketServer run:  Server has replied to the Message<span class="token operator">!</span>
+UdpSocketServer run: Server receiving<span class="token punctuation">..</span>.
+UdpSocketClient receiveData:  remoteAddress <span class="token operator">=</span> /127.0.0.1, port <span class="token operator">=</span> <span class="token number">9999</span>, data <span class="token operator">=</span> <span class="token punctuation">[</span>Server<span class="token punctuation">]</span>: Client Msg is Received
+
+<span class="token operator">==</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>Client --<span class="token operator">&gt;</span> Server<span class="token punctuation">]</span>请输入发送的消息<span class="token punctuation">(</span>输入quit退出<span class="token punctuation">)</span>:
+quit
+<span class="token operator">==</span><span class="token operator">&gt;</span> javaUdpSocketDemo is quitting<span class="token punctuation">..</span>.
+UdpSocketServer shutDown
+UdpSocketClient shutDown
+------------------------- javaUdpSocketDemo finished -------------------------
+UdpSocketServer run: exception <span class="token operator">=</span> Socket closed
+UdpSocketClient receiveData: exception <span class="token operator">=</span> Socket closed
+
+<span class="token comment"># 组播示例</span>
+**************** NetworkInterfaces ****************
+<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>. networkInterface: 
+	 <span class="token operator">&gt;</span> name <span class="token operator">=</span> eno1,
+	 <span class="token operator">&gt;</span> isLoopback <span class="token operator">=</span> false,
+	 <span class="token operator">&gt;</span> isVirtual <span class="token operator">=</span> false,
+	 <span class="token operator">&gt;</span> supportsMulticast <span class="token operator">=</span> true,
+	 <span class="token operator">&gt;</span> MTU <span class="token operator">=</span> <span class="token number">1500</span>,
+	 <span class="token operator">&gt;</span> hardwareAddress <span class="token operator">=</span> 4c:ed:fb:cb:13:49,
+	 <span class="token operator">&gt;</span> interfaceAddress <span class="token operator">=</span> <span class="token punctuation">[</span>/fe80:0:0:0:d790:aae3:d0e0:f77d%eno1/64 <span class="token punctuation">[</span>null<span class="token punctuation">]</span>, /192.168.1.106/24 <span class="token punctuation">[</span>/192.168.1.255<span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>. networkInterface: 
+	 <span class="token operator">&gt;</span> name <span class="token operator">=</span> lo,
+	 <span class="token operator">&gt;</span> isLoopback <span class="token operator">=</span> true,
+	 <span class="token operator">&gt;</span> isVirtual <span class="token operator">=</span> false,
+	 <span class="token operator">&gt;</span> supportsMulticast <span class="token operator">=</span> false,
+	 <span class="token operator">&gt;</span> MTU <span class="token operator">=</span> <span class="token number">65536</span>,
+	 <span class="token operator">&gt;</span> hardwareAddress <span class="token operator">=</span> null,
+	 <span class="token operator">&gt;</span> interfaceAddress <span class="token operator">=</span> <span class="token punctuation">[</span>/0:0:0:0:0:0:0:1%lo/128 <span class="token punctuation">[</span>null<span class="token punctuation">]</span>, /127.0.0.1/8 <span class="token punctuation">[</span>null<span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span>. <span class="token builtin class-name">exit</span>
+***************************************************
+
+<span class="token operator">==</span><span class="token operator">&gt;</span> 请选择一个支持功能操作的网卡（NetworkInterface）序号：1
+UdpMulticastSocketServer run: Server receiving<span class="token punctuation">..</span>.
+
+<span class="token operator">==</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>Client --<span class="token operator">&gt;</span> Server<span class="token punctuation">]</span>请输入发送的消息<span class="token punctuation">(</span>输入quit退出<span class="token punctuation">)</span>:
+Hello, send a multicast data.
+UdpMulticastSocketClient sendMessage: msg <span class="token operator">=</span> Hello, send a multicast data.
+UdpMulticastSocketServer run: server receiveMessage, remoteAddress <span class="token operator">=</span> <span class="token number">192.168</span>.1.106, port <span class="token operator">=</span> <span class="token number">50273</span>, data <span class="token operator">=</span> Hello, send a multicast data.
+UdpMulticastSocketServer run: Server receiving<span class="token punctuation">..</span>.
+UdpMulticastSocketClient receiveData: remoteAddress <span class="token operator">=</span> <span class="token number">192.168</span>.1.106, port <span class="token operator">=</span> <span class="token number">9999</span>, data <span class="token operator">=</span> <span class="token punctuation">[</span>Server<span class="token punctuation">]</span>: Client Msg is Received
+
+<span class="token operator">==</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>Client --<span class="token operator">&gt;</span> Server<span class="token punctuation">]</span>请输入发送的消息<span class="token punctuation">(</span>输入quit退出<span class="token punctuation">)</span>:
+quit
+<span class="token operator">==</span><span class="token operator">&gt;</span> javaBroadcastUdpSocketDemo is quitting<span class="token punctuation">..</span>.
+UdpMulticastSocketClient shutDown
+UdpMulticastSocketServer shutDown
+UdpMulticastSocketClient receiveData: exception <span class="token operator">=</span> Socket closed
+UdpMulticastSocketServer run: exception <span class="token operator">=</span> Socket closed
+
+<span class="token comment"># 广播示例</span>
+UdpSocketServer run: Server receiving<span class="token punctuation">..</span>.
+
+******************* 请选择一个广播的方式 *******************
+<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>. 局域网全网段广播<span class="token punctuation">(</span>部分网路设备不支持或者有限制<span class="token punctuation">)</span>
+<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>. 指定网段局域网<span class="token punctuation">(</span>选择一个指定网段的广播地址<span class="token punctuation">)</span>
+<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span>. Exit
+*********************************************************
+
+<span class="token operator">==</span><span class="token operator">&gt;</span> 请选择广播的方式：1
+<span class="token operator">==</span><span class="token operator">&gt;</span> 选择的broadcastAddress <span class="token operator">=</span> <span class="token number">255.255</span>.255.255
+
+<span class="token operator">==</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>Client --<span class="token operator">&gt;</span> Server<span class="token punctuation">]</span>请输入发送的消息<span class="token punctuation">(</span>输入quit退出<span class="token punctuation">)</span>:
+Hello, send a broadcast date.
+UdpSocketClient sendMessage: msg <span class="token operator">=</span> Hello, send a broadcast date.
+UdpSocketServer run: server receiveMessage,  remoteAddress <span class="token operator">=</span> /192.168.1.106, port <span class="token operator">=</span> <span class="token number">45952</span>, data <span class="token operator">=</span> Hello, send a broadcast date.
+UdpSocketServer run:  Server has replied to the Message<span class="token operator">!</span>
+UdpSocketServer run: Server receiving<span class="token punctuation">..</span>.
+UdpSocketClient receiveData:  remoteAddress <span class="token operator">=</span> /192.168.1.106, port <span class="token operator">=</span> <span class="token number">9999</span>, data <span class="token operator">=</span> <span class="token punctuation">[</span>Server<span class="token punctuation">]</span>: Client Msg is Received
+
+<span class="token operator">==</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>Client --<span class="token operator">&gt;</span> Server<span class="token punctuation">]</span>请输入发送的消息<span class="token punctuation">(</span>输入quit退出<span class="token punctuation">)</span>:
+quit
+<span class="token operator">==</span><span class="token operator">&gt;</span> javaBroadcastUdpSocketDemo is quitting<span class="token punctuation">..</span>.
+UdpSocketServer shutDown
+UdpSocketClient shutDown
+UdpSocketServer run: exception <span class="token operator">=</span> Socket closed
+UdpSocketClient receiveData: exception <span class="token operator">=</span> Socket closed
+------------------------- javaBroadcastUdpSocketDemo finished -------------------------
+</code></pre></div><p>好了，以上简单介绍了一下UDP的概念和相关的传输类型，并将不同的传输类型演示了如何使用的参考代码，到此大家就可以去实际操作一下了，<strong>JavaSocket UDP</strong>的实现就介绍到这里了。</p></div></section> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev"><a href="/developer/javasocket/01.tcp.html" class="prev">
+            JavaSocket系列-TCP链接
+          </a></span> <!----></p></div> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-70334359><li class="level-2" data-v-70334359><a href="/developer/javasocket/02.udp.html#简单介绍" class="sidebar-link reco-side-简单介绍" data-v-70334359>简单介绍</a></li><li class="level-2" data-v-70334359><a href="/developer/javasocket/02.udp.html#udp传输类型" class="sidebar-link reco-side-udp传输类型" data-v-70334359>UDP传输类型</a></li><li class="level-2" data-v-70334359><a href="/developer/javasocket/02.udp.html#实现流程" class="sidebar-link reco-side-实现流程" data-v-70334359>实现流程</a></li><li class="level-2" data-v-70334359><a href="/developer/javasocket/02.udp.html#创建服务端代码" class="sidebar-link reco-side-创建服务端代码" data-v-70334359>创建服务端代码</a></li><li class="level-3" data-v-70334359><a href="/developer/javasocket/02.udp.html#单播服务端代码" class="sidebar-link reco-side-单播服务端代码" data-v-70334359>单播服务端代码</a></li><li class="level-3" data-v-70334359><a href="/developer/javasocket/02.udp.html#组播和广播服务端代码" class="sidebar-link reco-side-组播和广播服务端代码" data-v-70334359>组播和广播服务端代码</a></li><li class="level-2" data-v-70334359><a href="/developer/javasocket/02.udp.html#创建客户端代码" class="sidebar-link reco-side-创建客户端代码" data-v-70334359>创建客户端代码</a></li><li class="level-3" data-v-70334359><a href="/developer/javasocket/02.udp.html#单播客户端代码" class="sidebar-link reco-side-单播客户端代码" data-v-70334359>单播客户端代码</a></li><li class="level-3" data-v-70334359><a href="/developer/javasocket/02.udp.html#组播和广播客户端代码" class="sidebar-link reco-side-组播和广播客户端代码" data-v-70334359>组播和广播客户端代码</a></li><li class="level-2" data-v-70334359><a href="/developer/javasocket/02.udp.html#网卡的接口相关工具类代码" class="sidebar-link reco-side-网卡的接口相关工具类代码" data-v-70334359>网卡的接口相关工具类代码</a></li><li class="level-2" data-v-70334359><a href="/developer/javasocket/02.udp.html#使用示例" class="sidebar-link reco-side-使用示例" data-v-70334359>使用示例</a></li><li class="level-2" data-v-70334359><a href="/developer/javasocket/02.udp.html#运行示例" class="sidebar-link reco-side-运行示例" data-v-70334359>运行示例</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div><canvas id="vuepress-canvas-cursor"></canvas><div class="kanbanniang" data-v-5f6c68dc><div class="banniang-container" style="display:;" data-v-5f6c68dc><div class="messageBox" style="right:68px;bottom:190px;display:none;" data-v-5f6c68dc>
+      我是江明，欢迎你的关注
+    </div> <div class="operation" style="right:90px;bottom:40px;display:;" data-v-5f6c68dc><i class="kbnfont kbn-ban-home ban-home" data-v-5f6c68dc></i> <a href="/comment/" data-v-5f6c68dc><i class="kbnfont kbn-ban-message message" data-v-5f6c68dc></i></a> <i class="kbnfont kbn-ban-close close" data-v-5f6c68dc></i> <a href="/about/" data-v-5f6c68dc><i class="kbnfont kbn-ban-info info" data-v-5f6c68dc></i></a> <i class="kbnfont kbn-ban-theme skin" style="display:;" data-v-5f6c68dc></i></div> <canvas id="banniang" width="150" height="220" class="live2d" style="right:90px;bottom:-20px;opacity:0.9;" data-v-5f6c68dc></canvas></div> <div class="showBanNiang" style="display:none;" data-v-5f6c68dc>
+    江明
+  </div></div><div><div class="sponsor-container" data-v-a142c76a><div class="sponsor-love position-absolute transition-3ms" data-v-a142c76a>
+    Sponsor
+  </div> <a href="https://github.com/yokefellow/vuepress-plugin-sponsor" target="_blank" title="Github" class="sponsor-github position-absolute transition-3ms" data-v-a142c76a></a> <ul class="sponsor-payment-options transition-3ms" data-v-a142c76a><li id="alipay-option" class="transition-3ms" data-v-a142c76a></li> <li id="wechat-option" class="transition-3ms" data-v-a142c76a></li> <li id="qq-option" class="transition-3ms" data-v-a142c76a></li> <li id="paypal-option" class="transition-3ms" data-v-a142c76a></li></ul> <div class="sponsor-qrcode-container position-absolute" style="display:none;" data-v-a142c76a data-v-a142c76a><div class="sponsor-qrcode-info" style="background-image:url();pointer-events:none;display:none;" data-v-a142c76a data-v-a142c76a></div></div> <div class="sponsor-message position-absolute" style="display:none;" data-v-a142c76a data-v-a142c76a>
+      主人忘记设置啦
+    </div></div></div><div></div></div></div>
+    <script src="/assets/js/app.e3e2c9d1.js" defer></script><script src="/assets/js/3.5ac42903.js" defer></script><script src="/assets/js/1.a0448a14.js" defer></script><script src="/assets/js/22.d0a7e9d7.js" defer></script>
+  </body>
+</html>
