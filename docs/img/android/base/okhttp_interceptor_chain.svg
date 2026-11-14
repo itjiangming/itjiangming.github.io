@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="480" viewBox="0 0 780 480" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="ob" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a90d9"/>
+    </marker>
+    <marker id="og" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4caf7d"/>
+    </marker>
+  </defs>
+  <style>
+    .t { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n { font-size:13px; font-weight:bold; fill:#2c5f9e; }
+    .s { font-size:11px; fill:#5b6b7a; }
+    .b { fill:#f4f8fb; stroke:#4a90d9; stroke-width:2; }
+    .g { fill:#eef8ef; stroke:#4caf7d; stroke-width:2; }
+    .m { fill:#fff7ef; stroke:#e07b39; stroke-width:2; }
+    .p1 { stroke:#4a90d9; stroke-width:2.2; fill:none; marker-end:url(#ob); }
+    .p2 { stroke:#4caf7d; stroke-width:2.2; fill:none; marker-end:url(#og); }
+    .lt { font-size:12px; fill:#2c5f9e; font-weight:bold; }
+    .gt { font-size:12px; fill:#4caf7d; font-weight:bold; }
+  </style>
+
+  <text class="t" x="240" y="30">OkHttp 拦截器责任链（Interceptor Chain）</text>
+
+  <!-- ===== 责任链主行（横向） ===== -->
+  <!-- 1 应用拦截器 -->
+  <rect class="m" x="40" y="80" width="118" height="95" rx="8"/>
+  <text class="n" x="99" y="106" text-anchor="middle">应用拦截器</text>
+  <text class="s" x="99" y="126" text-anchor="middle">addInterceptor</text>
+  <text class="s" x="99" y="144" text-anchor="middle">token/公共参数</text>
+  <text class="s" x="99" y="162" text-anchor="middle">日志埋点</text>
+
+  <!-- 2 重试重定向 -->
+  <rect class="b" x="180" y="80" width="108" height="95" rx="8"/>
+  <text class="n" x="234" y="106" text-anchor="middle">RetryAnd</text>
+  <text class="n" x="234" y="122" text-anchor="middle">FollowUp</text>
+  <text class="s" x="234" y="144" text-anchor="middle">失败重试</text>
+  <text class="s" x="234" y="162" text-anchor="middle">重定向跟随</text>
+
+  <!-- 3 Bridge -->
+  <rect class="b" x="320" y="80" width="108" height="95" rx="8"/>
+  <text class="n" x="374" y="106" text-anchor="middle">Bridge</text>
+  <text class="s" x="374" y="126" text-anchor="middle">补齐Header</text>
+  <text class="s" x="374" y="144" text-anchor="middle">Cookie/Gzip</text>
+  <text class="s" x="374" y="162" text-anchor="middle">透明压缩</text>
+
+  <!-- 4 Cache -->
+  <rect class="b" x="460" y="80" width="108" height="95" rx="8"/>
+  <text class="n" x="514" y="106" text-anchor="middle">Cache</text>
+  <text class="s" x="514" y="126" text-anchor="middle">命中直接返回</text>
+  <text class="s" x="514" y="144" text-anchor="middle">（短路不发请求）</text>
+  <text class="s" x="514" y="162" text-anchor="middle">304复用本地副本</text>
+
+  <!-- 5 Connect -->
+  <rect class="b" x="600" y="80" width="110" height="95" rx="8"/>
+  <text class="n" x="655" y="106" text-anchor="middle">Connect</text>
+  <text class="s" x="655" y="126" text-anchor="middle">连接池取连接</text>
+  <text class="s" x="655" y="144" text-anchor="middle">复用已完成TLS</text>
+  <text class="s" x="655" y="162" text-anchor="middle">握手的连接</text>
+
+  <!-- 横向请求/响应箭头 -->
+  <path class="p1" d="M158 115 H 176"/>
+  <path class="p1" d="M288 115 H 316"/>
+  <path class="p1" d="M428 115 H 456"/>
+  <path class="p1" d="M568 115 H 596"/>
+  <path class="p2" d="M176 150 H 162"/>
+  <path class="p2" d="M316 150 H 292"/>
+  <path class="p2" d="M456 150 H 432"/>
+  <path class="p2" d="M596 150 H 572"/>
+  <text class="lt" x="330" y="58">请求（蓝）↓ 逐层传递</text>
+  <text class="gt" x="330" y="205">响应（绿）↑ 逐层返回，每层都可加工Response</text>
+
+  <!-- ===== 右侧纵向链 ===== -->
+  <!-- 6 网络拦截器 -->
+  <rect class="m" x="600" y="240" width="110" height="85" rx="8"/>
+  <text class="n" x="655" y="266" text-anchor="middle">网络拦截器</text>
+  <text class="s" x="655" y="286" text-anchor="middle">addNetwork</text>
+  <text class="s" x="655" y="304" text-anchor="middle">Interceptor</text>
+
+  <!-- 7 CallServer -->
+  <rect class="g" x="600" y="375" width="110" height="85" rx="8"/>
+  <text class="n" x="655" y="401" text-anchor="middle">CallServer</text>
+  <text class="s" x="655" y="421" text-anchor="middle">真正的网络IO</text>
+  <text class="s" x="655" y="439" text-anchor="middle">Socket读写报文</text>
+
+  <!-- 纵向箭头：Connect → 网络拦截器 → CallServer -->
+  <path class="p1" d="M668 175 V 235"/>
+  <path class="p1" d="M668 325 V 370"/>
+  <text class="lt" x="676" y="210">真实连接</text>
+  <!-- 回程：CallServer → 网络拦截器 → Connect -->
+  <path class="p2" d="M640 370 V 330"/>
+  <path class="p2" d="M640 240 V 180"/>
+
+  <!-- ===== 左下：要点说明 ===== -->
+  <rect class="b" x="40" y="240" width="520" height="220" rx="10"/>
+  <text class="n" x="300" y="268" text-anchor="middle">责任链要点</text>
+  <text class="s" x="60" y="296">✔ 每个拦截器：加工请求 → chain.proceed(request)</text>
+  <text class="s" x="60" y="316">    交给下一层 → 拿到响应再加工返回上一层</text>
+  <text class="s" x="60" y="342">✔ 应用拦截器（addInterceptor）在链最前只走一次；</text>
+  <text class="s" x="60" y="362">    网络拦截器（addNetworkInterceptor）贴近真实IO，</text>
+  <text class="s" x="60" y="382">    重定向后每次真实连接都会再次经过</text>
+  <text class="s" x="60" y="408">✔ 自定义拦截器是网络层扩展点：</text>
+  <text class="s" x="60" y="428">    token注入、公共参数、日志、错误归一化（见11.03）</text>
+</svg>

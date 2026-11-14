@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="480" viewBox="0 0 780 480" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="lm" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a90d9"/>
+    </marker>
+  </defs>
+  <style>
+    .t { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n { font-size:13px; font-weight:bold; fill:#2c5f9e; }
+    .s { font-size:11px; fill:#5b6b7a; }
+    .b { fill:#f4f8fb; stroke:#4a90d9; stroke-width:2; }
+    .g { fill:#eef8ef; stroke:#4caf7d; stroke-width:2; }
+    .m { fill:#fff7ef; stroke:#e07b39; stroke-width:2; }
+    .p { stroke:#4a90d9; stroke-width:2; fill:none; marker-end:url(#lm); }
+    .st { fill:#dde7f2; stroke:#8fb8dc; stroke-width:1.5; }
+    .stt { font-size:11px; fill:#2c5f9e; font-weight:bold; }
+  </style>
+
+  <text class="t" x="270" y="30">四种启动模式：实例在任务栈中的表现</text>
+
+  <!-- standard -->
+  <rect class="b" x="40" y="60" width="170" height="290" rx="10"/>
+  <text class="n" x="125" y="88" text-anchor="middle">standard（默认）</text>
+  <rect class="st" x="60" y="105" width="130" height="30" rx="5"/>
+  <text class="stt" x="125" y="125" text-anchor="middle">A2（新实例）</text>
+  <rect class="st" x="60" y="145" width="130" height="30" rx="5"/>
+  <text class="stt" x="125" y="165" text-anchor="middle">A1</text>
+  <rect class="st" x="60" y="185" width="130" height="30" rx="5"/>
+  <text class="stt" x="125" y="205" text-anchor="middle">B</text>
+  <text class="s" x="60" y="240">每次启动都新建实例，</text>
+  <text class="s" x="60" y="260">压入栈顶；可以叠加自己：</text>
+  <text class="s" x="60" y="280">连点通知打开详情页</text>
+  <text class="s" x="60" y="300">会开出一串相同页面</text>
+
+  <!-- singleTop -->
+  <rect class="g" x="225" y="60" width="170" height="290" rx="10"/>
+  <text class="n" x="310" y="88" text-anchor="middle">singleTop</text>
+  <rect class="st" x="245" y="105" width="130" height="30" rx="5"/>
+  <text class="stt" x="310" y="125" text-anchor="middle">A1（复用，栈顶时）</text>
+  <rect class="st" x="245" y="145" width="130" height="30" rx="5"/>
+  <text class="stt" x="310" y="165" text-anchor="middle">B</text>
+  <text class="s" x="245" y="240">目标已在栈顶 → 复用，</text>
+  <text class="s" x="245" y="260">onNewIntent() 回调</text>
+  <text class="s" x="245" y="285">不在栈顶 → 仍然新建。</text>
+  <text class="s" x="245" y="305">场景：页面内“刷新自己”</text>
+
+  <!-- singleTask -->
+  <rect class="g" x="410" y="60" width="170" height="290" rx="10"/>
+  <text class="n" x="495" y="88" text-anchor="middle">singleTask</text>
+  <rect class="st" x="430" y="105" width="130" height="30" rx="5"/>
+  <text class="stt" x="495" y="125" text-anchor="middle">A1（复用，出栈其上）</text>
+  <rect class="st" x="430" y="145" width="130" height="30" rx="5"/>
+  <text class="stt" x="495" y="165" text-anchor="middle">（B/C被弹出）</text>
+  <rect class="st" x="430" y="185" width="130" height="30" rx="5" opacity="0.35"/>
+  <text class="stt" x="495" y="205" text-anchor="middle">B ✘ 已销毁</text>
+  <text class="s" x="430" y="240">全栈只有一个实例；</text>
+  <text class="s" x="430" y="260">再次启动 → 复用并把</text>
+  <text class="s" x="430" y="280">其上面的全部弹出。</text>
+  <text class="s" x="430" y="305">场景：应用主页入口</text>
+
+  <!-- singleInstance -->
+  <rect class="m" x="595" y="60" width="170" height="290" rx="10"/>
+  <text class="n" x="680" y="88" text-anchor="middle">singleInstance</text>
+  <rect class="st" x="615" y="105" width="130" height="30" rx="5"/>
+  <text class="stt" x="680" y="125" text-anchor="middle">独立任务栈：只有A1</text>
+  <rect class="st" x="615" y="145" width="130" height="30" rx="5" opacity="0.35"/>
+  <text class="stt" x="680" y="165" text-anchor="middle">（其他Activity不进来）</text>
+  <text class="s" x="615" y="240">独占一个任务栈；</text>
+  <text class="s" x="615" y="260">系统级单例（如来电页）。</text>
+  <text class="s" x="615" y="280">新页面会开到别的栈。</text>
+  <text class="s" x="615" y="305">日常开发极少使用</text>
+
+  <!-- 底部要点 -->
+  <rect class="b" x="40" y="370" width="720" height="90" rx="10"/>
+  <text class="n" x="400" y="397" text-anchor="middle">任务栈（Back Stack）概念</text>
+  <text class="s" x="60" y="422">✔ 每个任务 = Activity实例的“后退序列”，按入栈顺序后退（back键出栈）；recent列表里显示的就是任务</text>
+  <text class="s" x="60" y="444">✔ 配合 Intent FLAG（FLAG_ACTIVITY_CLEAR_TOP / NEW_TASK 等）可实现与launchMode等价的效果（13章 Intent 详讲）</text>
+</svg>

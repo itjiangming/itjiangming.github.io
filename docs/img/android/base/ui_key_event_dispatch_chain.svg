@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="430" viewBox="0 0 780 430" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="k" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a90d9"/>
+    </marker>
+    <marker id="k2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#e07b39"/>
+    </marker>
+  </defs>
+  <style>
+    .t { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n { font-size:14px; font-weight:bold; fill:#2c5f9e; }
+    .s { font-size:12px; fill:#5b6b7a; }
+    .b { fill:#f4f8fb; stroke:#4a90d9; stroke-width:2; }
+    .m { fill:#ffffff; stroke:#8fb8dc; stroke-width:1.5; }
+    .p { stroke:#4a90d9; stroke-width:2.2; fill:none; marker-end:url(#k); }
+    .p2 { stroke:#e07b39; stroke-width:2.2; fill:none; stroke-dasharray:7,5; marker-end:url(#k2); }
+  </style>
+
+  <text class="t" x="280" y="32">物理按键事件（KeyEvent）的传递链路</text>
+
+  <rect class="b" x="60" y="60" width="220" height="60" rx="8"/>
+  <text class="n" x="170" y="95" text-anchor="middle">物理按键/外设</text>
+
+  <rect class="b" x="280" y="60" width="220" height="60" rx="8"/>
+  <text class="n" x="390" y="88" text-anchor="middle">系统输入服务</text>
+  <text class="s" x="390" y="108" text-anchor="middle">识别keyCode，路由到焦点窗口</text>
+
+  <rect class="b" x="500" y="60" width="220" height="60" rx="8"/>
+  <text class="n" x="610" y="95" text-anchor="middle">当前前台Activity窗口</text>
+
+  <path class="p" d="M280 90 H 288"/>
+  <path class="p" d="M500 90 H 508"/>
+
+  <!-- Activity 层 -->
+  <rect class="b" x="160" y="170" width="460" height="100" rx="10"/>
+  <text class="n" x="390" y="198" text-anchor="middle">Activity</text>
+  <rect class="m" x="180" y="212" width="200" height="26" rx="5"/>
+  <text class="s" x="280" y="230" text-anchor="middle">dispatchKeyEvent()</text>
+  <rect class="m" x="400" y="212" width="200" height="26" rx="5"/>
+  <text class="s" x="500" y="230" text-anchor="middle">onKeyDown() / onKeyUp()</text>
+
+  <path class="p" d="M610 120 C 610 150, 560 160, 540 205"/>
+
+  <!-- 焦点View -->
+  <rect class="b" x="160" y="310" width="460" height="90" rx="10"/>
+  <text class="n" x="390" y="338" text-anchor="middle">获得焦点的 View（View 层级）</text>
+  <rect class="m" x="180" y="352" width="200" height="26" rx="5"/>
+  <text class="s" x="280" y="370" text-anchor="middle">View.dispatchKeyEvent()</text>
+  <rect class="m" x="400" y="352" width="200" height="26" rx="5"/>
+  <text class="s" x="500" y="370" text-anchor="middle">OnKeyListener / onKeyDown()</text>
+
+  <path class="p" d="M280 238 C 280 280, 320 300, 340 325"/>
+  <path class="p2" d="M470 352 C 440 300, 400 265, 400 240"/>
+  <text class="s" x="475" y="290" fill="#b3551e">View 未消费 → 回到 Activity 处理</text>
+
+  <text class="s" x="60" y="425">✔ 与触摸事件不同：按键不走 View 树的坐标命中，而是沿着“焦点链”传递</text>
+</svg>

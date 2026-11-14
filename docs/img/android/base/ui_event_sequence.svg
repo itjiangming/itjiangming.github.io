@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="450" viewBox="0 0 780 450" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="sq" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#5b6b7a"/>
+    </marker>
+  </defs>
+  <style>
+    .t { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n { font-size:13px; font-weight:bold; fill:#2c5f9e; }
+    .s { font-size:12px; fill:#5b6b7a; }
+    .b  { fill:#eef5fc; stroke:#4a90d9; stroke-width:2; }
+    .r  { fill:#fdeeee; stroke:#d9736b; stroke-width:2; }
+    .g  { fill:#eef8ef; stroke:#4caf7d; stroke-width:2; }
+    .etext { font-size:12px; font-weight:bold; fill:#2c3e50; }
+    .axis { stroke:#5b6b7a; stroke-width:2; marker-end:url(#sq); }
+    .dash { stroke:#b0bec5; stroke-width:2; stroke-dasharray:5,4; }
+  </style>
+
+  <text class="t" x="270" y="32">一次完整点击 / 滑动的事件序列</text>
+
+  <!-- ===== 泳道1：单击 ===== -->
+  <text class="n" x="60" y="100">单击</text>
+  <rect class="b" x="170" y="80" width="110" height="34" rx="6"/>
+  <text class="etext" x="225" y="102" text-anchor="middle">ACTION_DOWN</text>
+  <rect class="g" x="330" y="80" width="100" height="34" rx="6"/>
+  <text class="etext" x="380" y="102" text-anchor="middle">ACTION_UP</text>
+  <text class="s" x="460" y="102">按下即抬起，中间没有移动</text>
+
+  <!-- ===== 泳道2：长按 ===== -->
+  <text class="n" x="60" y="185">长按</text>
+  <rect class="b" x="170" y="165" width="110" height="34" rx="6"/>
+  <text class="etext" x="225" y="187" text-anchor="middle">ACTION_DOWN</text>
+  <line class="dash" x1="285" y1="182" x2="480" y2="182"/>
+  <text class="s" x="330" y="158">静止保持 ≥ 500ms</text>
+  <rect class="g" x="485" y="165" width="100" height="34" rx="6"/>
+  <text class="etext" x="535" y="187" text-anchor="middle">ACTION_UP</text>
+
+  <!-- ===== 泳道3：滑动 ===== -->
+  <text class="n" x="60" y="270">滑动（拖动）</text>
+  <rect class="b" x="170" y="250" width="90" height="34" rx="6"/>
+  <text class="etext" x="215" y="272" text-anchor="middle">DOWN</text>
+  <rect class="r" x="290" y="250" width="150" height="34" rx="6"/>
+  <text class="etext" x="365" y="272" text-anchor="middle">MOVE × N 次</text>
+  <rect class="g" x="470" y="250" width="90" height="34" rx="6"/>
+  <text class="etext" x="515" y="272" text-anchor="middle">UP</text>
+  <text class="s" x="170" y="308">手指滑动过程中，MOVE 事件按帧连续产生</text>
+
+  <!-- ===== 图例 ===== -->
+  <rect class="b" x="60" y="335" width="14" height="14" rx="3"/>
+  <text class="s" x="82" y="347">DOWN：序列起点（触摸锚定）</text>
+  <rect class="r" x="300" y="335" width="14" height="14" rx="3"/>
+  <text class="s" x="322" y="347">MOVE：移动事件（滑动中间态）</text>
+  <rect class="g" x="540" y="335" width="14" height="14" rx="3"/>
+  <text class="s" x="562" y="347">UP：序列终点（抬起）</text>
+
+  <!-- ===== 时间轴 ===== -->
+  <line class="axis" x1="60" y1="395" x2="716" y2="395"/>
+  <text class="s" x="60" y="420">手指按下</text>
+  <text class="s" x="680" y="420">时间 →</text>
+</svg>

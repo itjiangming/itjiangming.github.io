@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="430" viewBox="0 0 780 430" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="gl" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a90d9"/>
+    </marker>
+  </defs>
+  <style>
+    .t { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n { font-size:13px; font-weight:bold; fill:#2c5f9e; }
+    .s { font-size:12px; fill:#5b6b7a; }
+    .b { fill:#f4f8fb; stroke:#4a90d9; stroke-width:2; }
+    .g { fill:#eef8ef; stroke:#4caf7d; stroke-width:2; }
+    .m { fill:#fff7ef; stroke:#e07b39; stroke-width:2; }
+    .p { stroke:#4a90d9; stroke-width:2.2; fill:none; marker-end:url(#gl); }
+    .ok { font-size:13px; font-weight:bold; fill:#2e7d54; }
+  </style>
+
+  <text class="t" x="270" y="30">Glide 加载流水线：三级缓存命中即止</text>
+
+  <!-- 发起 -->
+  <rect class="b" x="50" y="80" width="140" height="70" rx="8"/>
+  <text class="n" x="120" y="110" text-anchor="middle">glide.into(view)</text>
+  <text class="s" x="120" y="132" text-anchor="middle">带view尺寸的请求key</text>
+
+  <!-- 一级 -->
+  <rect class="m" x="230" y="80" width="150" height="70" rx="8"/>
+  <text class="n" x="305" y="106" text-anchor="middle">① 活动缓存</text>
+  <text class="s" x="305" y="126" text-anchor="middle">正在使用的Bitmap</text>
+  <text class="s" x="305" y="142" text-anchor="middle">（引用计数管理）</text>
+
+  <!-- 二级 -->
+  <rect class="m" x="420" y="80" width="140" height="70" rx="8"/>
+  <text class="n" x="490" y="106" text-anchor="middle">② 内存缓存</text>
+  <text class="s" x="490" y="126" text-anchor="middle">LRU淘汰，key含</text>
+  <text class="s" x="490" y="142" text-anchor="middle">尺寸/变换参数</text>
+
+  <!-- 三级 -->
+  <rect class="m" x="600" y="80" width="140" height="70" rx="8"/>
+  <text class="n" x="670" y="106" text-anchor="middle">③ 磁盘缓存</text>
+  <text class="s" x="670" y="126" text-anchor="middle">原图缓存 + 变换后</text>
+  <text class="s" x="670" y="142" text-anchor="middle">结果缓存（两种策略）</text>
+
+  <path class="p" d="M190 115 H 225"/>
+  <path class="p" d="M380 115 H 415"/>
+  <path class="p" d="M560 115 H 595"/>
+
+  <!-- 命中 -->
+  <rect class="g" x="230" y="200" width="510" height="55" rx="8"/>
+  <text class="ok" x="485" y="228" text-anchor="middle">任一级命中 → 直接回调主线程设置Bitmap（速度：内存 ≈ 磁盘 ≫ 网络）</text>
+
+  <!-- 未命中 -->
+  <path class="p" d="M670 150 V 290"/>
+
+  <!-- 解码 -->
+  <rect class="b" x="430" y="290" width="170" height="80" rx="8"/>
+  <text class="n" x="515" y="318" text-anchor="middle">网络/本地源获取</text>
+  <text class="s" x="515" y="338" text-anchor="middle">下载 → 按view尺寸下采样</text>
+  <text class="s" x="515" y="356" text-anchor="middle">解码Bitmap（防OOM关键）</text>
+
+  <rect class="g" x="620" y="290" width="130" height="80" rx="8"/>
+  <text class="n" x="685" y="318" text-anchor="middle">写入各级缓存</text>
+  <text class="s" x="685" y="338" text-anchor="middle">回主线程显示</text>
+
+  <path class="p" d="M600 330 H 605"/>
+  <path class="p" d="M515 290 C 515 260, 640 230, 660 200"/>
+
+  <!-- 说明 -->
+  <text class="s" x="50" y="405">✔ key 精确到“URL+尺寸+变换参数”：同一图不同尺寸/裁剪是不同的缓存条目（也是列表复用错图的排查入口）</text>
+  <text class="s" x="50" y="425">✔ 下采样在解码时按目标View大小缩放，Bitmap内存 = 宽×高×每像素字节数 —— 加载库防OOM的本质就是“只解码所需大小”</text>
+</svg>

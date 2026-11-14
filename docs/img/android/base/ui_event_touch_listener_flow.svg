@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="420" viewBox="0 0 760 420" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a90d9"/>
+    </marker>
+    <marker id="ag" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4caf7d"/>
+    </marker>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#d9736b"/>
+    </marker>
+  </defs>
+  <style>
+    .t { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n { font-size:14px; font-weight:bold; fill:#2c3e50; }
+    .s { font-size:12px; fill:#5b6b7a; }
+    .b { fill:#f4f8fb; stroke:#4a90d9; stroke-width:2; }
+    .g { fill:#eef8ef; stroke:#4caf7d; stroke-width:2; }
+    .r { fill:#fdeeee; stroke:#d9736b; stroke-width:2; }
+    .p { stroke:#4a90d9; stroke-width:2; fill:none; marker-end:url(#ar); }
+    .pg { stroke:#4caf7d; stroke-width:2; fill:none; marker-end:url(#ag); }
+    .pr { stroke:#d9736b; stroke-width:2; fill:none; marker-end:url(#arr); }
+    .lt { font-size:12px; fill:#2c5f9e; font-weight:bold; }
+  </style>
+
+  <text class="t" x="390" y="32" text-anchor="middle">单个 View 内部：onTouch → onTouchEvent 的判定链</text>
+
+  <rect class="b" x="60" y="60" width="220" height="52" rx="8"/>
+  <text class="n" x="170" y="92" text-anchor="middle">事件到达 View</text>
+
+  <rect class="b" x="60" y="160" width="220" height="60" rx="8"/>
+  <text class="n" x="170" y="185" text-anchor="middle">OnTouchListener.onTouch()</text>
+  <text class="s" x="170" y="207" text-anchor="middle">监听器（过程事件）优先</text>
+
+  <rect class="g" x="420" y="120" width="270" height="66" rx="8"/>
+  <text class="n" x="555" y="147" text-anchor="middle">onTouch 返回 true：消费</text>
+  <text class="s" x="555" y="170" text-anchor="middle">dispatchTouchEvent 直接返回 true，流程结束</text>
+
+  <rect class="b" x="60" y="280" width="220" height="60" rx="8"/>
+  <text class="n" x="170" y="305" text-anchor="middle">View.onTouchEvent()</text>
+  <text class="s" x="170" y="327" text-anchor="middle">回调（内部判定 onClick/onLongClick）</text>
+
+  <rect class="r" x="420" y="280" width="270" height="60" rx="8"/>
+  <text class="n" x="555" y="305" text-anchor="middle">onTouch 返回 false：未消费</text>
+  <text class="s" x="555" y="327" text-anchor="middle">事件继续进入 onTouchEvent 处理</text>
+
+  <path class="p" d="M170 112 L170 155"/>
+  <path class="pg" d="M280 175 C 350 175, 360 160, 415 152"/>
+  <text class="lt" x="330" y="150">返回 true</text>
+  <path class="pr" d="M280 195 C 330 240, 250 260, 185 275"/>
+  <text class="lt" x="285" y="245" fill="#b3551e">返回 false</text>
+  <path class="pg" d="M420 320 C 340 320, 330 312, 285 310"/>
+
+  <!-- 结论 -->
+  <text class="s" x="60" y="395">✔ onClick / onLongClick 是在 onTouchEvent 内部根据 DOWN/UP 的时长与位移判断出来的“结果事件”，所以它们排在 onTouch 之后</text>
+</svg>

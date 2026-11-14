@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="470" viewBox="0 0 760 470" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="v" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a90d9"/>
+    </marker>
+  </defs>
+  <style>
+    .t { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n { font-size:15px; font-weight:bold; fill:#2c5f9e; }
+    .s { font-size:12px; fill:#5b6b7a; }
+    .b { fill:#f4f8fb; stroke:#4a90d9; stroke-width:2; }
+    .b2 { fill:#eef8ef; stroke:#4caf7d; stroke-width:2; }
+    .m { fill:#ffffff; stroke:#8fb8dc; stroke-width:1.5; }
+    .p { stroke:#4a90d9; stroke-width:2.2; fill:none; marker-end:url(#v); }
+    .lt { font-size:12px; fill:#2c5f9e; font-weight:bold; }
+  </style>
+
+  <text class="t" x="230" y="32">View 绘制三大流程：测量 → 定位 → 绘制</text>
+
+  <!-- onMeasure -->
+  <rect class="b" x="60" y="65" width="620" height="95" rx="10"/>
+  <text class="n" x="370" y="92" text-anchor="middle">① onMeasure(widthMeasureSpec, heightMeasureSpec)</text>
+  <rect class="m" x="90" y="105" width="180" height="26" rx="5"/>
+  <text class="s" x="180" y="122" text-anchor="middle">测量自身大小</text>
+  <rect class="m" x="280" y="105" width="180" height="26" rx="5"/>
+  <text class="s" x="370" y="122" text-anchor="middle">ViewGroup：逐个测量子 View</text>
+  <rect class="m" x="470" y="105" width="180" height="26" rx="5"/>
+  <text class="s" x="560" y="122" text-anchor="middle">setMeasuredDimension 存结果</text>
+
+  <!-- onLayout -->
+  <rect class="b" x="60" y="190" width="620" height="95" rx="10"/>
+  <text class="n" x="370" y="217" text-anchor="middle">② onLayout(changed, l, t, r, b)</text>
+  <rect class="m" x="90" y="230" width="180" height="26" rx="5"/>
+  <text class="s" x="180" y="247" text-anchor="middle">确定自身位置</text>
+  <rect class="m" x="280" y="230" width="180" height="26" rx="5"/>
+  <text class="s" x="370" y="247" text-anchor="middle">ViewGroup：摆放子 View</text>
+  <rect class="m" x="470" y="230" width="180" height="26" rx="5"/>
+  <text class="s" x="560" y="247" text-anchor="middle">child.layout(l,t,r,b) 赋坐标</text>
+
+  <!-- onDraw -->
+  <rect class="b2" x="60" y="315" width="620" height="95" rx="10"/>
+  <text class="n" x="370" y="342" text-anchor="middle">③ onDraw(Canvas canvas)</text>
+  <rect class="m" x="90" y="355" width="180" height="26" rx="5"/>
+  <text class="s" x="180" y="372" text-anchor="middle">Paint 设置画笔属性</text>
+  <rect class="m" x="280" y="355" width="180" height="26" rx="5"/>
+  <text class="s" x="370" y="372" text-anchor="middle">Canvas 绘制图形/文字/图片</text>
+  <rect class="m" x="470" y="355" width="180" height="26" rx="5"/>
+  <text class="s" x="560" y="372" text-anchor="middle">自定义 View 的核心舞台</text>
+
+  <!-- 箭头 -->
+  <path class="p" d="M370 160 L370 185"/>
+  <text class="lt" x="378" y="176">测量结果交给布局</text>
+  <path class="p" d="M370 285 L370 310"/>
+  <text class="lt" x="378" y="301">位置确定后开始绘制</text>
+
+  <text class="s" x="60" y="440">✔ 三大流程由 ViewRootImpl 发起：performMeasure → performLayout → performDraw</text>
+  <text class="s" x="60" y="458">✔ View（叶子）：只关心自己的测量与绘制；ViewGroup：还要协调所有子 View</text>
+</svg>

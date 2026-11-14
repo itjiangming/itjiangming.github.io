@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="480" viewBox="0 0 780 480" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="r" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a90d9"/>
+    </marker>
+  </defs>
+  <style>
+    .t { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n { font-size:14px; font-weight:bold; fill:#2c5f9e; }
+    .s { font-size:12px; fill:#5b6b7a; }
+    .b { fill:#f4f8fb; stroke:#4a90d9; stroke-width:2; }
+    .g { fill:#eef8ef; stroke:#4caf7d; stroke-width:2; }
+    .m { fill:#fff7ef; stroke:#e07b39; stroke-width:2; }
+    .p { stroke:#4a90d9; stroke-width:2; fill:none; marker-end:url(#r); }
+  </style>
+
+  <text class="t" x="250" y="32">资源限定符的匹配规则（以图片为例）</text>
+
+  <!-- 步骤流 -->
+  <rect class="b" x="60" y="60" width="660" height="55" rx="8"/>
+  <text class="n" x="390" y="92" text-anchor="middle">① 系统收集设备当前的所有状态：屏幕密度、语言、深色模式、方向…</text>
+
+  <rect class="b" x="60" y="140" width="660" height="55" rx="8"/>
+  <text class="n" x="390" y="172" text-anchor="middle">② 遍历所有候选目录，淘汰与设备状态冲突的（如中文设备淘汰 values-en）</text>
+
+  <rect class="b" x="60" y="220" width="660" height="55" rx="8"/>
+  <text class="n" x="390" y="252" text-anchor="middle">③ 在剩余候选中，按限定符优先级表从高到低逐级比较，选出最匹配的一个</text>
+
+  <!-- 示例 -->
+  <rect class="g" x="60" y="305" width="360" height="140" rx="10"/>
+  <text class="n" x="240" y="332" text-anchor="middle">示例：xxhdpi 设备 + 深色模式 + 中文</text>
+  <text class="s" x="80" y="360">drawable-xhdpi/icon.png    ✘ 密度低了（被更优者淘汰）</text>
+  <text class="s" x="80" y="382">drawable-xxhdpi-night/icon.png ✔ 命中（密度匹配+深色）</text>
+  <text class="s" x="80" y="404">drawable-xxhdpi/icon.png    ✔ 存在但 night 不匹配，次优</text>
+  <text class="s" x="80" y="426">drawable/icon.png           ✔ 兜底默认目录</text>
+
+  <rect class="m" x="440" y="305" width="280" height="140" rx="10"/>
+  <text class="n" x="580" y="332" text-anchor="middle">两条铁律</text>
+  <text class="s" x="460" y="360">1. 默认目录（无限定符）是兜底，</text>
+  <text class="s" x="460" y="382">   必须放一套完整资源</text>
+  <text class="s" x="460" y="410">2. 限定符目录是"特例"，</text>
+  <text class="s" x="460" y="432">   只放与默认不同的那部分</text>
+</svg>

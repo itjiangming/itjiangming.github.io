@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="470" viewBox="0 0 720 470" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a90d9"/>
+    </marker>
+  </defs>
+  <style>
+    .box { fill:#f4f8fb; stroke:#4a90d9; stroke-width:2; }
+    .m { fill:#ffffff; stroke:#8fb8dc; stroke-width:1.5; }
+    .t1 { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n  { font-size:15px; font-weight:bold; fill:#2c5f9e; }
+    .mtext { font-size:13px; fill:#3d5866; }
+    .note { font-size:12px; fill:#8a97a3; }
+    .l { stroke:#4a90d9; stroke-width:2; fill:none; marker-end:url(#arrow); }
+  </style>
+
+  <text class="t1" x="230" y="32">事件分发的三大角色</text>
+
+  <!-- Activity -->
+  <rect class="box" x="60" y="55" width="360" height="100" rx="10"/>
+  <text class="n" x="240" y="82" text-anchor="middle">Activity</text>
+  <rect class="m" x="80" y="98" width="320" height="26" rx="5"/>
+  <text class="mtext" x="240" y="116" text-anchor="middle">dispatchTouchEvent()</text>
+  <text class="note" x="80" y="145">事件分发入口，向下交给根 ViewGroup</text>
+
+  <!-- ViewGroup -->
+  <rect class="box" x="60" y="185" width="360" height="140" rx="10"/>
+  <text class="n" x="240" y="212" text-anchor="middle">ViewGroup（布局容器）</text>
+  <rect class="m" x="80" y="228" width="320" height="26" rx="5"/>
+  <text class="mtext" x="240" y="246" text-anchor="middle">dispatchTouchEvent()</text>
+  <rect class="m" x="80" y="262" width="320" height="26" rx="5"/>
+  <text class="mtext" x="240" y="280" text-anchor="middle">onInterceptTouchEvent()</text>
+  <rect class="m" x="80" y="296" width="320" height="26" rx="5"/>
+  <text class="mtext" x="240" y="314" text-anchor="middle">onTouchEvent()</text>
+
+  <!-- View -->
+  <rect class="box" x="60" y="355" width="360" height="90" rx="10"/>
+  <text class="n" x="240" y="382" text-anchor="middle">View（叶子控件）</text>
+  <rect class="m" x="80" y="398" width="320" height="26" rx="5"/>
+  <text class="mtext" x="240" y="416" text-anchor="middle">dispatchTouchEvent() → onTouchEvent()</text>
+
+  <!-- 右侧说明 -->
+  <text class="t1" x="580" y="230" text-anchor="middle" font-size="14">说明</text>
+  <text class="note" x="470" y="260">① ViewGroup 独有</text>
+  <text class="note" x="470" y="285">onInterceptTouchEvent</text>
+  <text class="note" x="470" y="310">② View 没有 onInterceptTouchEvent</text>
+  <text class="note" x="470" y="335">（叶子节点无拦截概念）</text>
+  <text class="note" x="470" y="360">③ 箭头方向：事件自上而下分发，</text>
+  <text class="note" x="470" y="385">未被消费时自下而上回溯</text>
+</svg>

@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="500" viewBox="0 0 780 500" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="h" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a90d9"/>
+    </marker>
+  </defs>
+  <style>
+    .t { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n { font-size:14px; font-weight:bold; fill:#2c5f9e; }
+    .s { font-size:12px; fill:#5b6b7a; }
+    .b { fill:#f4f8fb; stroke:#4a90d9; stroke-width:2; }
+    .g { fill:#eef8ef; stroke:#4caf7d; stroke-width:2; }
+    .m { fill:#fff7ef; stroke:#e07b39; stroke-width:2; }
+    .p { stroke:#4a90d9; stroke-width:2.2; fill:none; marker-end:url(#h); }
+    .p2 { stroke:#4caf7d; stroke-width:2.2; fill:none; marker-end:url(#h); }
+    .lt { font-size:12px; fill:#2c5f9e; font-weight:bold; }
+  </style>
+
+  <text class="t" x="270" y="32">Handler 消息机制：一个线程的“消息循环”全景</text>
+
+  <!-- 左：消息入口 -->
+  <rect class="b" x="60" y="70" width="240" height="130" rx="10"/>
+  <text class="n" x="180" y="100" text-anchor="middle">任意线程（如工作线程）</text>
+  <rect class="m" x="80" y="115" width="200" height="30" rx="5"/>
+  <text class="s" x="180" y="135" text-anchor="middle">handler.sendMessage(msg)</text>
+  <rect class="m" x="80" y="155" width="200" height="30" rx="5"/>
+  <text class="s" x="180" y="175" text-anchor="middle">handler.post(runnable)</text>
+
+  <!-- 中：MessageQueue -->
+  <rect class="b" x="380" y="70" width="180" height="130" rx="10"/>
+  <text class="n" x="470" y="100" text-anchor="middle">MessageQueue</text>
+  <text class="s" x="470" y="125" text-anchor="middle">消息队列（按when排序</text>
+  <text class="s" x="470" y="145" text-anchor="middle">的单链表）</text>
+  <text class="s" x="470" y="170" text-anchor="middle">enqueueMessage入队</text>
+
+  <path class="p" d="M300 140 H 375"/>
+  <text class="lt" x="310" y="130">① 入队</text>
+
+  <!-- 右：Looper -->
+  <rect class="g" x="600" y="70" width="140" height="130" rx="10"/>
+  <text class="n" x="670" y="100" text-anchor="middle">Looper</text>
+  <text class="s" x="670" y="125" text-anchor="middle">loop() 死循环</text>
+  <text class="s" x="670" y="150" text-anchor="middle">不断取下一条消息</text>
+  <text class="s" x="670" y="175" text-anchor="middle">（取不到时阻塞）</text>
+
+  <path class="p2" d="M560 140 H 595"/>
+  <text class="lt" x="562" y="130" fill="#4caf7d">② 取消息</text>
+
+  <!-- 回流：dispatch到handler -->
+  <rect class="b" x="240" y="280" width="300" height="110" rx="10"/>
+  <text class="n" x="390" y="310" text-anchor="middle">msg.target.dispatchMessage(msg)</text>
+  <text class="s" x="390" y="335" text-anchor="middle">→ Handler handleMessage()（主线程执行）</text>
+  <text class="s" x="390" y="360" text-anchor="middle">→ 更新 UI / 处理结果</text>
+
+  <path class="p" d="M640 205 C 640 260, 560 290, 545 335"/>
+  <text class="lt" x="600" y="260">③ 回到 Handler 的线程执行</text>
+
+  <!-- Handler与线程绑定 -->
+  <rect class="m" x="60" y="280" width="140" height="110" rx="10"/>
+  <text class="n" x="130" y="310" text-anchor="middle">Handler</text>
+  <text class="s" x="130" y="335" text-anchor="middle">绑定创建它的</text>
+  <text class="s" x="130" y="355" text-anchor="middle">线程的 Looper</text>
+  <text class="s" x="130" y="378" text-anchor="middle">（切换线程的开关）</text>
+
+  <path class="p" d="M200 335 H 235"/>
+
+  <!-- Message -->
+  <rect class="b" x="600" y="280" width="140" height="110" rx="10"/>
+  <text class="n" x="670" y="310" text-anchor="middle">Message</text>
+  <text class="s" x="670" y="335" text-anchor="middle">what/arg1/obj</text>
+  <text class="s" x="670" y="355" text-anchor="middle">when/callback</text>
+  <text class="s" x="670" y="378" text-anchor="middle">obtain() 对象池复用</text>
+
+  <!-- 阻塞说明 -->
+  <text class="s" x="60" y="435">✔ 循环的核心：取不到消息时 Looper 在 native 层休眠（epoll，不占CPU），有新消息（含定时到期）时被唤醒</text>
+  <text class="s" x="60" y="460">✔ 主线程的 Looper 在 ActivityThread.main() 中预先 prepare + loop，所以 Handler 可直接切回主线程</text>
+  <text class="s" x="60" y="485">✔ 延迟消息（postDelayed）= 入队时打上未来时间戳，Looper 取消息时若未到时间就休眠到到期</text>
+</svg>

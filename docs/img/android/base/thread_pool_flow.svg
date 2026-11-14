@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="470" viewBox="0 0 780 470" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="w" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a90d9"/>
+    </marker>
+  </defs>
+  <style>
+    .t { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n { font-size:14px; font-weight:bold; fill:#2c5f9e; }
+    .s { font-size:12px; fill:#5b6b7a; }
+    .b { fill:#f4f8fb; stroke:#4a90d9; stroke-width:2; }
+    .g { fill:#eef8ef; stroke:#4caf7d; stroke-width:2; }
+    .m { fill:#fdeeee; stroke:#d9736b; stroke-width:2; }
+    .p { stroke:#4a90d9; stroke-width:2.2; fill:none; marker-end:url(#w); }
+    .lt { font-size:12px; fill:#2c5f9e; font-weight:bold; }
+    .rt { font-size:12px; fill:#b3551e; font-weight:bold; }
+  </style>
+
+  <text class="t" x="270" y="32">ThreadPoolExecutor 提交任务的四步决策</text>
+
+  <!-- 提交 -->
+  <rect class="b" x="60" y="60" width="180" height="55" rx="8"/>
+  <text class="n" x="150" y="92" text-anchor="middle">submit(task)</text>
+
+  <!-- 判断1 -->
+  <rect class="g" x="60" y="150" width="260" height="70" rx="8"/>
+  <text class="n" x="190" y="180" text-anchor="middle">① 核心线程已满？</text>
+  <text class="s" x="190" y="202" text-anchor="middle">线程数 &lt; corePoolSize → 新建核心线程执行</text>
+
+  <!-- 判断2 -->
+  <rect class="g" x="60" y="250" width="260" height="70" rx="8"/>
+  <text class="n" x="190" y="280" text-anchor="middle">② 阻塞队列已满？</text>
+  <text class="s" x="190" y="302" text-anchor="middle">没满 → 任务入队等待核心线程空闲</text>
+
+  <!-- 判断3 -->
+  <rect class="g" x="60" y="350" width="260" height="70" rx="8"/>
+  <text class="n" x="190" y="380" text-anchor="middle">③ 最大线程已满？</text>
+  <text class="s" x="190" y="402" text-anchor="middle">线程数 &lt; maximumPoolSize → 新建非核心线程</text>
+
+  <!-- 拒绝 -->
+  <rect class="m" x="460" y="350" width="260" height="70" rx="8"/>
+  <text class="n" x="590" y="380" text-anchor="middle">④ 执行拒绝策略</text>
+  <text class="s" x="590" y="402" text-anchor="middle">AbortPolicy（默认抛异常）等四种</text>
+
+  <path class="p" d="M150 115 L150 145"/>
+  <path class="p" d="M150 220 L150 245"/>
+  <path class="p" d="M150 320 L150 345"/>
+  <path class="p" d="M320 385 H 455"/>
+  <text class="rt" x="340" y="375">队列满且线程达到max</text>
+
+  <!-- 右侧结果说明 -->
+  <rect class="b" x="460" y="150" width="260" height="180" rx="10"/>
+  <text class="n" x="590" y="180" text-anchor="middle">关键概念</text>
+  <text class="s" x="475" y="205">核心线程：默认常驻不回收</text>
+  <text class="s" x="475" y="230">非核心线程：闲置超过keepAliveTime回收</text>
+  <text class="s" x="475" y="255">workQueue：任务排队的阻塞队列</text>
+  <text class="s" x="475" y="280">注意顺序：先入队，队列满才扩容到max</text>
+  <text class="s" x="475" y="305">（这与直觉相反，LinkedBlockingQueue</text>
+  <text class="s" x="475" y="325">无界时 maximum 永远不会生效）</text>
+</svg>

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="480" viewBox="0 0 780 480" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="n" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a90d9"/>
+    </marker>
+  </defs>
+  <style>
+    .t { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n { font-size:13px; font-weight:bold; fill:#2c5f9e; }
+    .s { font-size:12px; fill:#5b6b7a; }
+    .b { fill:#f4f8fb; stroke:#4a90d9; stroke-width:2; }
+    .g { fill:#eef8ef; stroke:#4caf7d; stroke-width:2; }
+    .m { fill:#fff7ef; stroke:#e07b39; stroke-width:2; }
+    .p { stroke:#4a90d9; stroke-width:2.2; fill:none; marker-end:url(#n); }
+  </style>
+
+  <text class="t" x="250" y="30">一次 HTTPS 请求的完整生命周期</text>
+
+  <!-- 步骤链 -->
+  <rect class="b" x="50" y="55" width="150" height="80" rx="8"/>
+  <text class="n" x="125" y="82" text-anchor="middle">① DNS 解析</text>
+  <text class="s" x="125" y="102" text-anchor="middle">域名 → 服务器IP</text>
+  <text class="s" x="125" y="120" text-anchor="middle">（有本地缓存则跳过）</text>
+
+  <rect class="b" x="230" y="55" width="150" height="80" rx="8"/>
+  <text class="n" x="305" y="82" text-anchor="middle">② TCP 三次握手</text>
+  <text class="s" x="305" y="102" text-anchor="middle">建立可靠连接</text>
+  <text class="s" x="305" y="120" text-anchor="middle">（连接池可复用跳过）</text>
+
+  <rect class="m" x="410" y="55" width="160" height="80" rx="8"/>
+  <text class="n" x="490" y="82" text-anchor="middle">③ TLS 握手</text>
+  <text class="s" x="490" y="102" text-anchor="middle">协商加密套件</text>
+  <text class="s" x="490" y="120" text-anchor="middle">验证证书 → 加密通道</text>
+
+  <rect class="g" x="600" y="55" width="140" height="80" rx="8"/>
+  <text class="n" x="670" y="82" text-anchor="middle">④ 收发数据</text>
+  <text class="s" x="670" y="102" text-anchor="middle">HTTP请求/响应</text>
+  <text class="s" x="670" y="120" text-anchor="middle">（密文传输）</text>
+
+  <path class="p" d="M200 95 H 225"/>
+  <path class="p" d="M380 95 H 405"/>
+  <path class="p" d="M570 95 H 595"/>
+
+  <!-- HTTP 报文结构 -->
+  <rect class="b" x="50" y="170" width="330" height="270" rx="10"/>
+  <text class="n" x="215" y="200" text-anchor="middle">HTTP 请求报文结构</text>
+  <rect class="m" x="70" y="218" width="290" height="30" rx="5"/>
+  <text class="s" x="85" y="238">GET /api/user/1 HTTP/1.1  ← 请求行</text>
+  <rect class="g" x="70" y="256" width="290" height="60" rx="5"/>
+  <text class="s" x="85" y="278">Host: api.example.com      ← 请求头</text>
+  <text class="s" x="85" y="298">Content-Type: application/json</text>
+  <text class="s" x="85" y="312">Authorization: Bearer eyJhbGci...</text>
+  <rect class="b" x="70" y="324" width="290" height="50" rx="5"/>
+  <text class="s" x="85" y="346">{"name":"JiangMing"}</text>
+  <text class="s" x="85" y="364">                          ← 请求体（POST才有）</text>
+  <text class="s" x="70" y="400">响应报文对称：状态行(200 OK) + 响应头 + 响应体</text>
+  <text class="s" x="70" y="422">服务端返回JSON → 客户端解析成对象（见12章）</text>
+
+  <!-- 状态码 -->
+  <rect class="b" x="410" y="170" width="330" height="270" rx="10"/>
+  <text class="n" x="575" y="200" text-anchor="middle">常见状态码速查</text>
+  <text class="s" x="425" y="228">2xx 成功：200 OK / 201 Created / 204 No Content</text>
+  <text class="s" x="425" y="252">3xx 重定向：301 永久 / 302 临时 / 304 缓存有效</text>
+  <text class="s" x="425" y="276">4xx 客户端错误：</text>
+  <text class="s" x="440" y="296">400 参数错 / 401 未认证 / 403 无权限 / 404 不存在</text>
+  <text class="s" x="425" y="320">5xx 服务端错误：</text>
+  <text class="s" x="440" y="340">500 内部错误 / 502 网关错 / 503 服务不可用</text>
+  <text class="s" x="425" y="368">客户端处理原则：2xx走成功流程；401触发重新登录/</text>
+  <text class="s" x="440" y="388">token刷新；4xx提示用户输入问题；5xx提示稍后重试</text>
+  <text class="s" x="425" y="415">HTTPS = HTTP + TLS加密 + 身份认证（证书）+ 完整性校验</text>
+</svg>

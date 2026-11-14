@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="460" viewBox="0 0 780 460" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="cv" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a90d9"/>
+    </marker>
+  </defs>
+  <style>
+    .t { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n { font-size:14px; font-weight:bold; fill:#2c5f9e; }
+    .s { font-size:12px; fill:#5b6b7a; }
+    .b { fill:#f4f8fb; stroke:#4a90d9; stroke-width:2; }
+    .g { fill:#eef8ef; stroke:#4caf7d; stroke-width:2; }
+    .m { fill:#fff7ef; stroke:#e07b39; stroke-width:2; }
+    .p { stroke:#4a90d9; stroke-width:2.2; fill:none; marker-end:url(#cv); }
+  </style>
+
+  <text class="t" x="290" y="30">四大组件：应用的功能载体（均由系统托管）</text>
+
+  <!-- Activity -->
+  <rect class="b" x="40" y="60" width="340" height="120" rx="10"/>
+  <text class="n" x="210" y="88" text-anchor="middle">Activity —— 界面载体</text>
+  <text class="s" x="60" y="114">✔ 用户交互入口：一屏 = 一个Activity</text>
+  <text class="s" x="60" y="136">✔ 生命周期最完整（前台可见可交互）</text>
+  <text class="s" x="60" y="158">✘ 直接持有View，最容易被系统回收重建</text>
+
+  <!-- Service -->
+  <rect class="b" x="400" y="60" width="340" height="120" rx="10"/>
+  <text class="n" x="570" y="88" text-anchor="middle">Service —— 后台服务</text>
+  <text class="s" x="420" y="114">✔ 无界面，长时间后台执行/跨进程服务</text>
+  <text class="s" x="420" y="136">✔ started（独立跑）/ bound（绑定通信）</text>
+  <text class="s" x="420" y="158">✘ 不等于子线程！耗时操作仍需线程池</text>
+
+  <!-- BroadcastReceiver -->
+  <rect class="b" x="40" y="200" width="340" height="120" rx="10"/>
+  <text class="n" x="210" y="228" text-anchor="middle">BroadcastReceiver —— 全局监听</text>
+  <text class="s" x="60" y="254">✔ 系统级事件的接收器：开机/网络变化/短信</text>
+  <text class="s" x="60" y="276">✔ 静态注册（manifest）/ 动态注册（代码）</text>
+  <text class="s" x="60" y="298">✘ onReceive 运行在主线程，10秒内必须结束</text>
+
+  <!-- ContentProvider -->
+  <rect class="b" x="400" y="200" width="340" height="120" rx="10"/>
+  <text class="n" x="570" y="228" text-anchor="middle">ContentProvider —— 数据共享</text>
+  <text class="s" x="420" y="254">✔ 跨应用数据接口：URI 寻址 + 增删改查</text>
+  <text class="s" x="420" y="276">✔ 系统媒体库/通讯录都通过它暴露</text>
+  <text class="s" x="420" y="298">✘ 底层 Binder IPC，注意权限控制</text>
+
+  <!-- 系统托管说明 -->
+  <rect class="g" x="40" y="345" width="700" height="90" rx="10"/>
+  <text class="n" x="390" y="372" text-anchor="middle">共同点：组件由系统托管，而不是由应用“new”出来</text>
+  <text class="s" x="60" y="398">① 必须在 AndroidManifest.xml 中声明（除动态广播）　② 生命周期由系统回调　③ 组件间靠 Intent 通信</text>
+  <text class="s" x="60" y="420">④ Fragment 不是四大组件（无manifest声明），但依赖 Activity 运行（13.05）</text>
+</svg>

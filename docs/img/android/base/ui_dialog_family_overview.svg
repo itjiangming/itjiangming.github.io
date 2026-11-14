@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="470" viewBox="0 0 780 470" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="d" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a90d9"/>
+    </marker>
+  </defs>
+  <style>
+    .t { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n { font-size:14px; font-weight:bold; fill:#2c5f9e; }
+    .s { font-size:12px; fill:#5b6b7a; }
+    .b { fill:#f4f8fb; stroke:#4a90d9; stroke-width:2; }
+    .g { fill:#eef8ef; stroke:#4caf7d; stroke-width:2; }
+    .m { fill:#fff7ef; stroke:#e07b39; stroke-width:2; }
+    .p { stroke:#4a90d9; stroke-width:2; fill:none; marker-end:url(#d); }
+  </style>
+
+  <text class="t" x="300" y="32">弹层家族：按“重量级”分类与选型</text>
+
+  <!-- 顶层：Dialog 家族 -->
+  <rect class="b" x="40" y="60" width="700" height="180" rx="10"/>
+  <text class="n" x="390" y="88" text-anchor="middle">Dialog 家族（模态，阻断交互，需要用户处理）</text>
+
+  <rect class="g" x="65" y="110" width="140" height="105" rx="8"/>
+  <text class="n" x="135" y="138" text-anchor="middle">AlertDialog</text>
+  <text class="s" x="135" y="162" text-anchor="middle">标准确认/选择</text>
+  <text class="s" x="135" y="180" text-anchor="middle">列表/单选/多选</text>
+  <text class="s" x="135" y="198" text-anchor="middle">最常用</text>
+
+  <rect class="g" x="220" y="110" width="140" height="105" rx="8"/>
+  <text class="n" x="290" y="138" text-anchor="middle">DialogFragment</text>
+  <text class="s" x="290" y="162" text-anchor="middle">对话框 + 生命周期</text>
+  <text class="s" x="290" y="180" text-anchor="middle">旋转屏不丢状态</text>
+  <text class="s" x="290" y="198" text-anchor="middle">官方推荐载体</text>
+
+  <rect class="g" x="375" y="110" width="140" height="105" rx="8"/>
+  <text class="n" x="445" y="138" text-anchor="middle">BottomSheetDialog</text>
+  <text class="s" x="445" y="162" text-anchor="middle">底部弹出面板</text>
+  <text class="s" x="445" y="180" text-anchor="middle">Material Design</text>
+  <text class="s" x="445" y="198" text-anchor="middle">选择/操作面板</text>
+
+  <rect class="m" x="530" y="110" width="185" height="105" rx="8"/>
+  <text class="n" x="622" y="138" text-anchor="middle">ProgressDialog</text>
+  <text class="s" x="622" y="162" text-anchor="middle">进度圈对话框</text>
+  <text class="s" x="622" y="180" text-anchor="middle">⚠ 已废弃</text>
+  <text class="s" x="622" y="198" text-anchor="middle">用 ProgressBar 替代</text>
+
+  <!-- PopupWindow -->
+  <rect class="b" x="40" y="275" width="222" height="90" rx="10"/>
+  <text class="n" x="151" y="303" text-anchor="middle">PopupWindow（轻量浮层）</text>
+  <text class="s" x="151" y="327" text-anchor="middle">锚定某个 View 弹出，非模态</text>
+  <text class="s" x="151" y="347" text-anchor="middle">下拉筛选、气泡提示</text>
+
+  <!-- Toast / Snackbar -->
+  <rect class="b" x="278" y="275" width="222" height="90" rx="10"/>
+  <text class="n" x="389" y="303" text-anchor="middle">Toast / Snackbar（瞬时反馈）</text>
+  <text class="s" x="389" y="327" text-anchor="middle">Toast：系统级轻提示</text>
+  <text class="s" x="389" y="347" text-anchor="middle">Snackbar：Material 风格+可带按钮</text>
+
+  <!-- WindowManager 悬浮窗 -->
+  <rect class="m" x="516" y="275" width="224" height="90" rx="10"/>
+  <text class="n" x="628" y="303" text-anchor="middle">WindowManager 悬浮窗</text>
+  <text class="s" x="628" y="327" text-anchor="middle">系统级窗口，不依赖Activity</text>
+  <text class="s" x="628" y="347" text-anchor="middle">需悬浮窗权限，全局悬浮球/Video</text>
+
+  <!-- 结论 -->
+  <text class="s" x="40" y="405">✔ 模态确认/选择 → AlertDialog（推荐用 DialogFragment 承载）</text>
+  <text class="s" x="40" y="425">✔ 底部面板 → BottomSheetDialog；锚定浮层 → PopupWindow；全局悬浮 → WindowManager</text>
+  <text class="s" x="40" y="445">✔ 轻量反馈 → Toast（全局）/ Snackbar（页面内 + 可撤销操作）</text>
+</svg>

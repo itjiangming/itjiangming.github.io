@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="520" viewBox="0 0 760 520" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="a1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a90d9"/>
+    </marker>
+    <marker id="a2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#e07b39"/>
+    </marker>
+  </defs>
+  <style>
+    .t { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n { font-size:14px; font-weight:bold; fill:#2c5f9e; }
+    .r { font-size:14px; font-weight:bold; fill:#b3551e; }
+    .s { font-size:12px; fill:#5b6b7a; }
+    .g { fill:#f4f8fb; stroke:#4a90d9; stroke-width:2; }
+    .d { fill:#fff7ef; stroke:#e07b39; stroke-width:1.8; stroke-dasharray:6,4; }
+    .p1 { stroke:#4a90d9; stroke-width:2.5; fill:none; marker-end:url(#a1); }
+    .p2 { stroke:#e07b39; stroke-width:2.5; fill:none; stroke-dasharray:7,5; marker-end:url(#a2); }
+  </style>
+
+  <text class="t" x="390" y="32" text-anchor="middle">事件分发的"U 型"传递（ViewGroup 嵌套 View 为例）</text>
+
+  <!-- 左列：分发方向 -->
+  <rect class="g" x="60" y="70" width="240" height="60" rx="8"/>
+  <text class="n" x="180" y="98" text-anchor="middle">Activity</text>
+  <text class="s" x="180" y="118" text-anchor="middle">dispatchTouchEvent()</text>
+
+  <rect class="g" x="60" y="200" width="240" height="60" rx="8"/>
+  <text class="n" x="180" y="228" text-anchor="middle">ViewGroup</text>
+  <text class="s" x="180" y="248" text-anchor="middle">onInterceptTouchEvent() ?</text>
+
+  <rect class="g" x="60" y="340" width="240" height="60" rx="8"/>
+  <text class="n" x="180" y="368" text-anchor="middle">View（子控件）</text>
+  <text class="s" x="180" y="388" text-anchor="middle">dispatchTouchEvent()</text>
+
+  <!-- 右列：消费/回溯 -->
+  <rect class="d" x="460" y="340" width="240" height="60" rx="8"/>
+  <text class="r" x="580" y="368" text-anchor="middle">View.onTouchEvent()</text>
+  <text class="s" x="580" y="388" text-anchor="middle">返回 false → 不消费</text>
+
+  <rect class="d" x="460" y="200" width="240" height="60" rx="8"/>
+  <text class="r" x="580" y="228" text-anchor="middle">ViewGroup.onTouchEvent()</text>
+  <text class="s" x="580" y="248" text-anchor="middle">兜底处理</text>
+
+  <rect class="d" x="460" y="70" width="240" height="60" rx="8"/>
+  <text class="r" x="580" y="98" text-anchor="middle">Activity.onTouchEvent()</text>
+  <text class="s" x="580" y="118" text-anchor="middle">最终兜底</text>
+
+  <!-- 蓝色分发箭头（向下） -->
+  <path class="p1" d="M180 130 L180 195"/>
+  <text class="s" x="188" y="168" fill="#2c5f9e">① 分发</text>
+  <path class="p1" d="M180 260 L180 335"/>
+  <text class="s" x="188" y="305" fill="#2c5f9e">② 不拦截，继续分发给子 View</text>
+
+  <!-- 橙色回溯箭头（向上） -->
+  <path class="p2" d="M300 370 H 460"/>
+  <text class="s" x="345" y="362" fill="#b3551e">③ onTouchEvent 返回 false</text>
+  <path class="p2" d="M460 340 C 420 320, 420 280, 460 250"/>
+  <text class="s" x="430" y="300" fill="#b3551e">④ 回溯父容器</text>
+  <path class="p2" d="M460 200 C 420 180, 420 120, 460 100"/>
+  <text class="s" x="430" y="150" fill="#b3551e">⑤ 一路回溯</text>
+
+  <!-- 底部结论 -->
+  <text class="s" x="60" y="460">✔ 若 View.onTouchEvent() 返回 true（消费），回溯终止，整个事件序列（DOWN/MOVE/UP）都由它处理</text>
+  <text class="s" x="60" y="488">✔ 分发是自上而下的“问责任”，消费是自下而上的“答结果”：蓝色向下问，橙色向上答</text>
+</svg>

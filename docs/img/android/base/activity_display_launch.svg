@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="380" viewBox="0 0 780 380" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="dl" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a90d9"/>
+    </marker>
+  </defs>
+  <style>
+    .t { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n { font-size:13px; font-weight:bold; fill:#2c5f9e; }
+    .s { font-size:12px; fill:#5b6b7a; }
+    .b { fill:#f4f8fb; stroke:#4a90d9; stroke-width:2; }
+    .g { fill:#eef8ef; stroke:#4caf7d; stroke-width:2; }
+    .m { fill:#fff7ef; stroke:#e07b39; stroke-width:2; }
+    .p { stroke:#4a90d9; stroke-width:2.2; fill:none; marker-end:url(#dl); }
+    .disp { fill:#dde7f2; stroke:#8fb8dc; stroke-width:2; }
+  </style>
+
+  <text class="t" x="250" y="30">启动 Activity 到指定 Display（多屏）</text>
+
+  <!-- 枚举 -->
+  <rect class="b" x="50" y="60" width="220" height="110" rx="10"/>
+  <text class="n" x="160" y="88" text-anchor="middle">① DisplayManager 枚举</text>
+  <text class="s" x="65" y="112">getDisplays() → 显示屏数组</text>
+  <text class="s" x="65" y="132">每个Display有唯一 displayId</text>
+  <text class="s" x="65" y="152">0 = DEFAULT_DISPLAY（主屏）</text>
+
+  <!-- 构造 -->
+  <rect class="b" x="320" y="60" width="200" height="110" rx="10"/>
+  <text class="n" x="420" y="88" text-anchor="middle">② 构造启动选项</text>
+  <text class="s" x="335" y="112">ActivityOptions</text>
+  <text class="s" x="335" y="132">.setLaunchDisplayId(id)</text>
+  <text class="s" x="335" y="152">.toBundle()</text>
+
+  <!-- 发射 -->
+  <rect class="b" x="570" y="60" width="180" height="110" rx="10"/>
+  <text class="n" x="660" y="88" text-anchor="middle">③ startActivity</text>
+  <text class="s" x="585" y="112">(intent, optionsBundle)</text>
+  <text class="s" x="585" y="132">Activity 落到指定屏幕，</text>
+  <text class="s" x="585" y="152">在该屏拥有独立任务栈</text>
+
+  <path class="p" d="M270 115 H 315"/>
+  <path class="p" d="M520 115 H 565"/>
+
+  <!-- 屏幕示意 -->
+  <rect class="disp" x="60" y="200" width="280" height="160" rx="6"/>
+  <text class="n" x="200" y="235" text-anchor="middle">Display 0（主屏 / DEFAULT）</text>
+  <rect class="b" x="90" y="255" width="100" height="70" rx="4"/>
+  <text class="s" x="140" y="295" text-anchor="middle">MainActivity</text>
+  <rect class="g" x="200" y="255" width="100" height="70" rx="4"/>
+  <text class="s" x="250" y="295" text-anchor="middle">副屏Activity</text>
+
+  <rect class="disp" x="420" y="200" width="280" height="160" rx="6"/>
+  <text class="n" x="560" y="235" text-anchor="middle">Display 2（副屏/车载仪表）</text>
+  <rect class="g" x="450" y="255" width="100" height="70" rx="4"/>
+  <text class="s" x="500" y="295" text-anchor="middle">副屏Activity</text>
+  <text class="s" x="450" y="345">各Display拥有独立的任务栈和返回队列</text>
+
+  <!-- 注意 -->
+  <text class="s" x="420" y="375">✔ 需 FLAG_ACTIVITY_NEW_TASK（跨屏启动任务级操作）</text>
+</svg>

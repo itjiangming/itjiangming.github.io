@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="380" viewBox="0 0 780 380" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="gs" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a90d9"/>
+    </marker>
+  </defs>
+  <style>
+    .t { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n { font-size:14px; font-weight:bold; fill:#2c5f9e; }
+    .s { font-size:12px; fill:#5b6b7a; }
+    .b { fill:#f4f8fb; stroke:#4a90d9; stroke-width:2; }
+    .g { fill:#eef8ef; stroke:#4caf7d; stroke-width:2; }
+    .code { font-family:Consolas,monospace; font-size:12px; fill:#3d5866; }
+    .p { stroke:#4a90d9; stroke-width:2.2; fill:none; marker-end:url(#gs); }
+  </style>
+
+  <text class="t" x="280" y="30">Gson 双向工作流</text>
+
+  <!-- 反序列化 -->
+  <text class="n" x="60" y="65">反序列化（读）：fromJson</text>
+  <rect class="b" x="60" y="80" width="240" height="80" rx="8"/>
+  <text class="code" x="75" y="105">{"id":1,"name":"JiangMing",</text>
+  <text class="code" x="75" y="123">"tags":["Android","Java"],</text>
+  <text class="code" x="75" y="141">"createTime":"2026-11-14"}</text>
+
+  <rect class="g" x="360" y="80" width="200" height="80" rx="8"/>
+  <text class="n" x="460" y="105" text-anchor="middle">Gson 解析引擎</text>
+  <text class="s" x="460" y="128" text-anchor="middle">反射读字段名 → 逐字段赋值</text>
+  <text class="s" x="460" y="146" text-anchor="middle">TypeAdapter 处理特殊类型</text>
+
+  <rect class="b" x="620" y="80" width="130" height="80" rx="8"/>
+  <text class="n" x="685" y="105" text-anchor="middle">User 对象</text>
+  <text class="s" x="685" y="128" text-anchor="middle">id=1, name=...</text>
+  <text class="s" x="685" y="146" text-anchor="middle">tags=[...]</text>
+
+  <path class="p" d="M300 120 H 355"/>
+  <path class="p" d="M560 120 H 615"/>
+
+  <!-- 序列化 -->
+  <text class="n" x="60" y="205">序列化（写）：toJson</text>
+  <rect class="b" x="60" y="220" width="240" height="60" rx="8"/>
+  <text class="code" x="75" y="245">new User(1, "JiangMing", ...)</text>
+  <text class="code" x="75" y="263">（@Body 提交给Retrofit）</text>
+
+  <rect class="g" x="360" y="220" width="200" height="60" rx="8"/>
+  <text class="n" x="460" y="245" text-anchor="middle">Gson 序列化引擎</text>
+  <text class="s" x="460" y="268" text-anchor="middle">反射写字段名 → 拼接JSON</text>
+
+  <rect class="b" x="620" y="220" width="130" height="60" rx="8"/>
+  <text class="code" x="635" y="245">{"id":1,</text>
+  <text class="code" x="632" y="263">"name":"..."}</text>
+
+  <path class="p" d="M300 250 H 355"/>
+  <path class="p" d="M560 250 H 615"/>
+
+  <!-- 映射规则 -->
+  <rect class="b" x="60" y="300" width="690" height="60" rx="8"/>
+  <text class="s" x="75" y="325">映射规则：JSON的key ↔ Java字段名（不一致用 @SerializedName("key") 指定）</text>
+  <text class="s" x="75" y="347">类型按字段声明匹配，不匹配抛异常或置空；底层反射：实体需有无参构造</text>
+  </svg>

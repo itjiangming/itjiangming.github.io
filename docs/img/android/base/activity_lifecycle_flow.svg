@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="560" viewBox="0 0 780 560" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="lc" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a90d9"/>
+    </marker>
+    <marker id="lc2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4caf7d"/>
+    </marker>
+    <marker id="lc3" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#d9736b"/>
+    </marker>
+  </defs>
+  <style>
+    .t { font-size:17px; font-weight:bold; fill:#2c3e50; }
+    .n { font-size:13px; font-weight:bold; fill:#2c5f9e; }
+    .s { font-size:12px; fill:#5b6b7a; }
+    .b { fill:#f4f8fb; stroke:#4a90d9; stroke-width:2; }
+    .g { fill:#eef8ef; stroke:#4caf7d; stroke-width:2; }
+    .m { fill:#fff7ef; stroke:#e07b39; stroke-width:2; }
+    .r2 { fill:#fdeeee; stroke:#d9736b; stroke-width:2; }
+    .p { stroke:#4a90d9; stroke-width:2.2; fill:none; marker-end:url(#lc); }
+    .pg { stroke:#4caf7d; stroke-width:2; fill:none; stroke-dasharray:6,4; marker-end:url(#lc2); }
+    .pr { stroke:#d9736b; stroke-width:2; fill:none; stroke-dasharray:6,4; marker-end:url(#lc3); }
+  </style>
+
+  <text class="t" x="270" y="30">Activity 生命周期七回调与典型路径</text>
+
+  <!-- 主干：纵向四态 -->
+  <rect class="b" x="80" y="60" width="180" height="55" rx="8"/>
+  <text class="n" x="170" y="92" text-anchor="middle">onCreate()</text>
+  <text class="s" x="170" y="108" text-anchor="middle">创建：setContentView/初始化</text>
+
+  <rect class="b" x="80" y="165" width="180" height="55" rx="8"/>
+  <text class="n" x="170" y="197" text-anchor="middle">onStart()</text>
+  <text class="s" x="170" y="213" text-anchor="middle">可见，尚不可交互</text>
+
+  <rect class="b" x="80" y="270" width="180" height="55" rx="8"/>
+  <text class="n" x="170" y="302" text-anchor="middle">onResume()</text>
+  <text class="s" x="170" y="318" text-anchor="middle">前台可交互（Resumed态）</text>
+
+  <rect class="r2" x="80" y="375" width="180" height="55" rx="8"/>
+  <text class="n" x="170" y="407" text-anchor="middle">onPause()</text>
+  <text class="s" x="170" y="423" text-anchor="middle">部分遮挡/跳转：快速轻量</text>
+
+  <rect class="r2" x="80" y="470" width="180" height="55" rx="8"/>
+  <text class="n" x="170" y="502" text-anchor="middle">onStop()</text>
+  <text class="s" x="170" y="518" text-anchor="middle">完全不可见</text>
+
+  <!-- 右侧三个终点态 -->
+  <rect class="g" x="420" y="165" width="300" height="55" rx="8"/>
+  <text class="n" x="570" y="197" text-anchor="middle">onRestart() → onStart()</text>
+  <text class="s" x="570" y="213" text-anchor="middle">Stop态返回前台时先经过</text>
+
+  <rect class="g" x="420" y="270" width="300" height="55" rx="8"/>
+  <text class="n" x="570" y="302" text-anchor="middle">用户返回 → onPause → onStop → onDestroy</text>
+  <text class="s" x="570" y="318" text-anchor="middle">（或系统直接杀进程，不走回调）</text>
+
+  <rect class="m" x="420" y="375" width="300" height="55" rx="8"/>
+  <text class="n" x="570" y="407" text-anchor="middle">旋转屏/进程回收 → onDestroy → 重建onCreate</text>
+  <text class="s" x="570" y="423" text-anchor="middle">状态由 onSaveInstanceState 保存恢复</text>
+
+  <!-- 主干箭头 -->
+  <path class="p" d="M170 115 V 160"/>
+  <path class="p" d="M170 220 V 265"/>
+  <text class="s" x="180" y="247">跳转到新页：onPause(旧) → onResume(新)</text>
+
+  <!-- 路径箭头 -->
+  <path class="pr" d="M260 390 C 330 390, 360 340, 415 302"/>
+  <text class="s" x="300" y="360" fill="#b3551e">跳转/息屏/回桌面</text>
+  <path class="pr" d="M260 495 C 360 495, 420 380, 415 330"/>
+  <path class="p" d="M170 430 V 465"/>
+  <path class="p" d="M170 525 C 260 545, 380 400, 415 332"/>
+  <path class="pg" d="M415 195 C 340 195, 320 195, 265 195"/>
+  <text class="s" x="330" y="188" fill="#4caf7d">返回前台</text>
+  <path class="pg" d="M260 300 C 320 300, 350 300, 415 300"/>
+</svg>
